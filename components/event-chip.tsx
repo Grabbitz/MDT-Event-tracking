@@ -11,9 +11,10 @@ import {
   useHover,
   useInteractions,
 } from "@floating-ui/react";
+import type { EventApi } from "@fullcalendar/core";
 import type { EventRecord } from "@/lib/types";
 
-export function EventChip({ event }: { event: any }) {
+export function EventChip({ event }: { event: EventApi }) {
   const [isOpen, setIsOpen] = useState(false);
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
