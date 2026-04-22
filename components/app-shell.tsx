@@ -1,9 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { CalendarDays, Gauge, ListFilter, LogIn, LogOut, Plus, Settings2 } from "lucide-react";
 import type { ReactNode } from "react";
 import { signOut } from "@/app/actions/auth";
 import { isSupabaseConfigured } from "@/lib/env";
-import { createOptionalClient } from "@/lib/supabase/server";
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: Gauge },
@@ -13,11 +15,14 @@ const navItems = [
   { href: "/settings/channels", label: "Channels", icon: Settings2 },
 ];
 
-export async function AppShell({ children }: { children: ReactNode }) {
-  const supabase = await createOptionalClient();
-  const {
-    data: { user },
-  } = supabase ? await supabase.auth.getUser() : { data: { user: null } };
+export function AppShell({ 
+  children,
+  userEmail
+}: { 
+  children: ReactNode;
+  userEmail: string | null;
+}) {
+  const pathname = usePathname();
 
   return (
     <div className="min-h-screen lg:grid lg:grid-cols-[248px_1fr]">
@@ -36,13 +41,21 @@ export async function AppShell({ children }: { children: ReactNode }) {
           <nav className="flex gap-1 overflow-x-auto lg:flex-1 lg:flex-col lg:pt-8">
             {navItems.map((item) => {
               const Icon = item.icon;
+              const isActive = item.href === "/" 
+                ? pathname === "/" 
+                : pathname.startsWith(item.href);
+
               return (
                 <Link
                   href={item.href}
                   key={item.href}
-                  className="hover:bg-panel-soft flex min-h-10 shrink-0 items-center gap-2 rounded-md px-3 text-sm font-bold text-[oklch(0.34_0.03_65)] transition"
+                  className={`flex min-h-10 shrink-0 items-center gap-2 rounded-md px-3 text-sm font-bold transition ${
+                    isActive
+                      ? "bg-accent text-white"
+                      : "hover:bg-panel-soft text-[oklch(0.34_0.03_65)]"
+                  }`}
                 >
-                  <Icon aria-hidden className="h-4 w-4" />
+                  <Icon aria-hidden className={`h-4 w-4 ${isActive ? "text-white" : ""}`} />
                   <span>{item.label}</span>
                 </Link>
               );
@@ -52,8 +65,8 @@ export async function AppShell({ children }: { children: ReactNode }) {
           <div className="border-line hidden rounded-md border bg-panel-soft p-3 text-xs text-muted lg:block">
             {isSupabaseConfigured() ? (
               <div className="space-y-3">
-                <p className="font-bold text-foreground">{user?.email ?? "Not signed in"}</p>
-                {user ? (
+                <p className="font-bold text-foreground">{userEmail ?? "Not signed in"}</p>
+                {userEmail ? (
                   <form action={signOut}>
                     <button type="submit" className="flex items-center gap-2 font-black text-accent-strong">
                       <LogOut aria-hidden className="h-3.5 w-3.5" />
