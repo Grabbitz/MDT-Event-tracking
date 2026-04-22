@@ -59,28 +59,49 @@ button {
   cursor: pointer;
 }
 
+/* Update .fc overrides in globals.css */
 .fc {
   --fc-border-color: var(--line);
   --fc-button-bg-color: var(--accent);
   --fc-button-border-color: var(--accent);
   --fc-button-hover-bg-color: var(--accent-strong);
   --fc-button-hover-border-color: var(--accent-strong);
-  --fc-today-bg-color: oklch(0.94 0.05 58);
+  --fc-today-bg-color: transparent !important;
 }
 
-.fc .fc-toolbar-title {
-  font-size: 1.15rem;
-  font-weight: 700;
+/* Today highlight as a soft circle */
+.fc .fc-day-today .fc-daygrid-day-number {
+  background: var(--accent-soft);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 4px;
+  color: var(--accent-strong) !important;
 }
 
-.fc .fc-button {
-  border-radius: 6px;
-  box-shadow: none;
-  font-weight: 700;
+/* Day numbers */
+.fc .fc-daygrid-day-number {
+  font-size: 1.1rem; /* Slightly larger as requested */
+  font-weight: 800;
+  padding: 8px;
 }
 
-.fc .fc-event {
-  border-radius: 6px;
-  border: 0;
-  padding: 2px 4px;
+/* Hide default event styling to use custom chips */
+.fc-v-event, .fc-h-event {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Custom tooltip style */
+.calendar-tooltip {
+  z-index: 1000;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
