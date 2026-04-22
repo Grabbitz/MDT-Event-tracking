@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+:root {
+  --background: oklch(0.985 0.006 72);
+  --foreground: oklch(0.19 0.018 62);
+  --muted: oklch(0.56 0.022 68);
+  --line: oklch(0.89 0.018 70);
+  --panel: oklch(0.998 0.004 72);
+  --panel-soft: oklch(0.965 0.014 75);
+  --accent: oklch(0.68 0.18 46);
+  --accent-strong: oklch(0.59 0.19 43);
+  --accent-soft: oklch(0.92 0.07 57);
+  --green: oklch(0.61 0.13 151);
+  --red: oklch(0.59 0.15 28);
+  --blue: oklch(0.57 0.12 244);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-panel: var(--panel);
+  --color-panel-soft: var(--panel-soft);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: "Noto Sans Thai", "Aptos", "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, oklch(0.995 0.006 72), var(--background) 360px),
+    var(--background);
+  color: var(--foreground);
+  font-family: "Noto Sans Thai", "Aptos", "Segoe UI", sans-serif;
+  letter-spacing: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.fc {
+  --fc-border-color: var(--line);
+  --fc-button-bg-color: var(--accent);
+  --fc-button-border-color: var(--accent);
+  --fc-button-hover-bg-color: var(--accent-strong);
+  --fc-button-hover-border-color: var(--accent-strong);
+  --fc-today-bg-color: oklch(0.94 0.05 58);
+}
+
+.fc .fc-toolbar-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.fc .fc-button {
+  border-radius: 6px;
+  box-shadow: none;
+  font-weight: 700;
+}
+
+.fc .fc-event {
+  border-radius: 6px;
+  border: 0;
+  padding: 2px 4px;
+}
