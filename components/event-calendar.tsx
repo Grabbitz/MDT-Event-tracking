@@ -20,10 +20,10 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setView("listWeek");
-      } else {
-        setView("dayGridMonth");
+      const newView = window.innerWidth < 768 ? "listWeek" : "dayGridMonth";
+      setView(newView);
+      if (calendarRef.current) {
+        calendarRef.current.getApi().changeView(newView);
       }
     };
     handleResize();
