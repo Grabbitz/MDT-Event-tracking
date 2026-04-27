@@ -42,8 +42,8 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
           <section className="border-line rounded-lg border bg-panel p-5">
             <h2 className="text-xl font-black">Sales</h2>
             <dl className="mt-4 space-y-3">
-              <Info label="Target" value={event.salesTarget ? event.salesTarget.toLocaleString("th-TH") : "-"} />
-              <Info label="Actual" value={event.actualSales ? event.actualSales.toLocaleString("th-TH") : "-"} />
+              <Info label="Target" value={event.salesTarget != null ? event.salesTarget.toLocaleString("th-TH") : "-"} />
+              <Info label="Actual" value={event.actualSales != null ? event.actualSales.toLocaleString("th-TH") : "-"} />
             </dl>
           </section>
 
@@ -77,7 +77,7 @@ function TextBlock({ title, value }: { title: string; value: string }) {
   return (
     <section className="border-line mt-6 border-t pt-5">
       <h3 className="font-black">{title}</h3>
-      <p className="mt-3 whitespace-pre-wrap text-sm leading-7 text-[oklch(0.3_0.025_65)]">{value}</p>
+      <p className="mt-3 whitespace-pre-wrap text-sm leading-7 text-[oklch(0.32_0.02_60)]">{value}</p>
     </section>
   );
 }

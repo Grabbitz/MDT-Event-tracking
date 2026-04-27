@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { hasInvalidDateRange } from "@/lib/event-validation";
 import { createClient } from "@/lib/supabase/server";
 import type { ParticipationStatus } from "@/lib/types";
 
@@ -34,6 +35,10 @@ export async function createEvent(_state: EventActionState, formData: FormData):
 
   if (!name || !channel || !startDate || !endDate) {
     return { message: "กรอกชื่องาน ช่องทาง วันเริ่มงาน และวันรื้อถอนให้ครบ" };
+  }
+
+  if (hasInvalidDateRange(startDate, endDate)) {
+    return { message: "วันรื้อถอนต้องไม่ก่อนวันเริ่มงาน" };
   }
 
   const { data: channelRow, error: channelError } = await supabase

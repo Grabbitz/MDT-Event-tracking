@@ -9,7 +9,7 @@ import thLocale from "@fullcalendar/core/locales/th";
 import Link from "next/link";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { formatDateRange, getStatusLabel } from "@/lib/event-format";
+import { formatDateRange, formatEventDuration, getStatusLabel } from "@/lib/event-format";
 import type { EventRecord } from "@/lib/types";
 import { EventChip } from "./event-chip";
 
@@ -82,7 +82,12 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
                   <p className="text-xs font-black uppercase tracking-widest text-accent-strong">{selected.channel}</p>
                 </div>
                 <h2 className="mt-3 text-2xl font-black leading-tight tracking-tight text-foreground">{selected.name}</h2>
-                <p className="text-muted mt-2 text-sm font-bold">{formatDateRange(selected.startDate, selected.endDate)}</p>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <p className="text-muted text-sm font-bold">{formatDateRange(selected.startDate, selected.endDate)}</p>
+                  <span className="rounded-full bg-accent-soft px-2.5 py-1 text-[11px] font-black tracking-wide text-accent-strong">
+                    {formatEventDuration(selected.startDate, selected.endDate)}
+                  </span>
+                </div>
               </div>
               
               <div className="grid gap-4">
