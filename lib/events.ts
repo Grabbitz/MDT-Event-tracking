@@ -77,8 +77,8 @@ export async function getEventById(id: string) {
   return mapSupabaseEvent(data as unknown as SupabaseEventRow);
 }
 
-export async function getChannels(): Promise<ChannelSummary[]> {
-  const events = await getEvents();
+export async function getChannels(eventsInput?: EventRecord[]): Promise<ChannelSummary[]> {
+  const events = eventsInput ?? (await getEvents());
   const channelRows = await getChannelRows();
   const now = new Date().toISOString().slice(0, 10);
   const groups = new Map<string, ChannelSummary>();
@@ -113,7 +113,7 @@ export async function getChannels(): Promise<ChannelSummary[]> {
 
 export async function getDashboardStats() {
   const events = await getEvents();
-  const channels = await getChannels();
+  const channels = await getChannels(events);
   const now = new Date();
   const today = now.toISOString().slice(0, 10);
   const month = today.slice(0, 7);

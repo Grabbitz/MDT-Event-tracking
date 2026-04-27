@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "tsx --test",
+    "test:watch": "tsx --test --watch",
     "import:legacy": "tsx scripts/import-legacy-xlsx.ts",
     "seed:legacy": "tsx scripts/import-legacy-xlsx.ts --local-json"
   },

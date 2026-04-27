@@ -34,21 +34,23 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
 
   return (
     <div className="space-y-5">
-      <section className="border-line bg-panel rounded-lg border p-4">
-        <div className="grid gap-3 lg:grid-cols-[minmax(220px,1fr)_160px_160px_140px_auto]">
+      <section className="border-line rounded-2xl border bg-panel p-4 shadow-[var(--shadow-soft)] sm:p-5">
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-[minmax(220px,1fr)_160px_160px_140px_auto]">
           <label className="relative">
             <Search aria-hidden className="text-muted pointer-events-none absolute left-3 top-3 h-4 w-4" />
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              className="border-line h-10 w-full rounded-md border bg-white px-9 text-sm outline-none focus:border-accent"
+              className="border-line h-11 w-full rounded-md border bg-white px-9 text-sm outline-none focus:border-accent"
               placeholder="ค้นหาชื่องาน สถานที่ ช่องทาง"
+              aria-label="ค้นหาอีเวนท์"
             />
           </label>
           <select
             value={channel}
             onChange={(event) => setChannel(event.target.value)}
-            className="border-line h-10 rounded-md border bg-white px-3 text-sm font-semibold outline-none focus:border-accent"
+            className="border-line h-11 rounded-md border bg-white px-3 text-sm font-semibold outline-none focus:border-accent"
+            aria-label="กรองตามช่องทาง"
           >
             <option value="all">ทุกช่องทาง</option>
             {channels.map((item) => (
@@ -60,7 +62,8 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
           <select
             value={status}
             onChange={(event) => setStatus(event.target.value as ParticipationStatus | "all")}
-            className="border-line h-10 rounded-md border bg-white px-3 text-sm font-semibold outline-none focus:border-accent"
+            className="border-line h-11 rounded-md border bg-white px-3 text-sm font-semibold outline-none focus:border-accent"
+            aria-label="กรองตามสถานะ"
           >
             <option value="all">ทุกสถานะ</option>
             <option value="joining">เข้าร่วม</option>
@@ -70,7 +73,8 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
           <select
             value={year}
             onChange={(event) => setYear(event.target.value)}
-            className="border-line h-10 rounded-md border bg-white px-3 text-sm font-semibold outline-none focus:border-accent"
+            className="border-line h-11 rounded-md border bg-white px-3 text-sm font-semibold outline-none focus:border-accent"
+            aria-label="กรองตามปี"
           >
             <option value="all">ทุกปี</option>
             {years.map((item) => (
@@ -83,21 +87,21 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
         </div>
       </section>
 
-      <section className="border-line overflow-hidden rounded-lg border bg-panel">
+      <section className="border-line overflow-hidden rounded-2xl border bg-panel shadow-[var(--shadow-soft)]">
         <div className="border-line flex flex-wrap items-center justify-between gap-3 border-b px-4 py-3">
           <p className="text-sm font-bold">
             พบ {filteredEvents.length.toLocaleString("th-TH")} รายการ
           </p>
           <Link
             href="/events/new"
-            className="flex min-h-9 items-center gap-2 rounded-md bg-accent px-3 text-sm font-black text-white transition hover:bg-accent-strong"
+            className="flex min-h-10 items-center gap-2 rounded-md bg-accent px-3 text-sm font-black text-white transition-colors duration-200 hover:bg-accent-strong"
           >
             <CalendarPlus aria-hidden className="h-4 w-4" />
             เพิ่มอีเวนท์
           </Link>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto overscroll-x-contain">
           <table className="w-full min-w-[920px] border-collapse text-sm">
             <thead className="bg-panel-soft text-left">
               <tr className="text-muted">
@@ -111,9 +115,9 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
             </thead>
             <tbody>
               {filteredEvents.map((event) => (
-                <tr key={event.id} className="border-line border-t align-top hover:bg-panel-soft/70">
+                <tr key={event.id} className="border-line border-t align-top transition-colors duration-150 hover:bg-panel-soft/70">
                   <td className="px-4 py-3">
-                    <Link href={`/events/${event.id}`} className="font-black hover:text-accent-strong">
+                    <Link href={`/events/${event.id}`} className="font-black transition-colors duration-150 hover:text-accent-strong">
                       {event.name}
                     </Link>
                     {event.boothSize ? <p className="text-muted mt-1 text-xs">{event.boothSize}</p> : null}
