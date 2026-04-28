@@ -1,6 +1,7 @@
 import legacyEvents from "@/lib/legacy-events.json";
 import { isSupabaseConfigured } from "@/lib/env";
 export { formatDate, formatDateRange, getStatusClass, getStatusLabel } from "@/lib/event-format";
+import { getGoogleSheetEvents, isGoogleSheetConfigured } from "@/lib/google-sheet-events";
 import { createOptionalClient } from "@/lib/supabase/server";
 import type { ChannelSummary, EventRecord, ParticipationStatus } from "@/lib/types";
 
@@ -38,11 +39,22 @@ export function getLegacyEvents() {
     .sort((a, b) => a.startDate.localeCompare(b.startDate));
 }
 
+export async function getFallbackEvents() {
+  if (!isGoogleSheetConfigured()) return getLegacyEvents();
+
+  try {
+    return await getGoogleSheetEvents();
+  } catch (error) {
+    console.warn("Falling back to legacy events:", error instanceof Error ? error.message : error);
+    return getLegacyEvents();
+  }
+}
+
 export async function getEvents() {
-  if (!isSupabaseConfigured()) return getLegacyEvents();
+  if (!isSupabaseConfigured()) return getFallbackEvents();
 
   const supabase = await createOptionalClient();
-  if (!supabase) return getLegacyEvents();
+  if (!supabase) return getFallbackEvents();
 
   const { data, error } = await supabase
     .from("events")
@@ -53,17 +65,17 @@ export async function getEvents() {
 
   if (error) {
     console.warn("Falling back to legacy events:", error.message);
-    return getLegacyEvents();
+    return getFallbackEvents();
   }
 
   return ((data ?? []) as unknown as SupabaseEventRow[]).map(mapSupabaseEvent);
 }
 
 export async function getEventById(id: string) {
-  if (!isSupabaseConfigured()) return getLegacyEvents().find((event) => event.id === id);
+  if (!isSupabaseConfigured()) return (await getFallbackEvents()).find((event) => event.id === id);
 
   const supabase = await createOptionalClient();
-  if (!supabase) return getLegacyEvents().find((event) => event.id === id);
+  if (!supabase) return (await getFallbackEvents()).find((event) => event.id === id);
 
   const { data, error } = await supabase
     .from("events")
@@ -73,13 +85,13 @@ export async function getEventById(id: string) {
     .eq("id", id)
     .single();
 
-  if (error || !data) return getLegacyEvents().find((event) => event.id === id);
+  if (error || !data) return (await getFallbackEvents()).find((event) => event.id === id);
   return mapSupabaseEvent(data as unknown as SupabaseEventRow);
 }
 
 export async function getChannels(eventsInput?: EventRecord[]): Promise<ChannelSummary[]> {
   const events = eventsInput ?? (await getEvents());
-  const channelRows = await getChannelRows();
+  const channelRows = isSupabaseConfigured() ? await getChannelRows() : getChannelRowsFromEvents(events);
   const now = new Date().toISOString().slice(0, 10);
   const groups = new Map<string, ChannelSummary>();
 
@@ -136,17 +148,17 @@ export async function getDashboardStats() {
 }
 
 async function getChannelRows(): Promise<ChannelRow[]> {
-  if (!isSupabaseConfigured()) {
-    const rows = new Map<string, ChannelRow>();
-    for (const event of getLegacyEvents()) rows.set(event.channel, { name: event.channel, color: event.channelColor });
-    return Array.from(rows.values());
-  }
-
   const supabase = await createOptionalClient();
   if (!supabase) return [];
 
   const { data } = await supabase.from("channels").select("name,color").order("name", { ascending: true });
   return ((data ?? []) as ChannelRow[]) || [];
+}
+
+function getChannelRowsFromEvents(events: EventRecord[]) {
+  const rows = new Map<string, ChannelRow>();
+  for (const event of events) rows.set(event.channel, { name: event.channel, color: event.channelColor });
+  return Array.from(rows.values());
 }
 
 function mapSupabaseEvent(row: SupabaseEventRow): EventRecord {

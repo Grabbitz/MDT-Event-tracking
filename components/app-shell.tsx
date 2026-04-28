@@ -17,10 +17,12 @@ const navItems = [
 
 export function AppShell({ 
   children,
-  userEmail
+  userEmail,
+  sourceLabel,
 }: { 
   children: ReactNode;
   userEmail: string | null;
+  sourceLabel: string;
 }) {
   const pathname = usePathname();
 
@@ -87,7 +89,7 @@ export function AppShell({
             ) : (
               <div className="space-y-2">
                 <p className="font-bold text-foreground">Local Mode</p>
-                <p className="leading-normal opacity-80">Using Excel seed data for planning.</p>
+                <p className="leading-normal opacity-80">Using {sourceLabel} data for planning.</p>
               </div>
             )}
           </div>
