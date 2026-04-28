@@ -39,8 +39,8 @@ export function parseGoogleSheetCsv(csv: string, sourceIndex = 0): EventRecord[]
   const [headers = [], ...rows] = parseCsv(csv);
   const normalizedHeaders = headers.map(clean);
 
-  return rows
-    .map((cells, rowIndex) => {
+  const parsedEvents = rows
+    .map((cells, rowIndex): EventRecord | null => {
       const row = toRow(normalizedHeaders, cells);
       const name = clean(row["ชื่องาน"] ?? row["Event Name"] ?? row["name"]);
       const channel = clean(row["ช่องทาง"] ?? row["Channel"] ?? row["channel"]);
@@ -77,9 +77,10 @@ export function parseGoogleSheetCsv(csv: string, sourceIndex = 0): EventRecord[]
         salesTarget,
         actualSales,
         fileName: clean(row["ไฟล์"] ?? row["File"] ?? row["fileName"]) || undefined,
-      } satisfies EventRecord;
-    })
-    .filter((event): event is EventRecord => Boolean(event));
+      };
+    });
+
+  return parsedEvents.filter(isEventRecord);
 }
 
 async function fetchSheetEvents(sheetUrl: string, sourceIndex: number) {
@@ -236,4 +237,8 @@ function slug(value: string) {
     .replace(/[^a-z0-9ก-๙]+/gi, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, 48);
+}
+
+function isEventRecord(event: EventRecord | null): event is EventRecord {
+  return event !== null;
 }
