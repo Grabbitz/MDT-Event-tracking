@@ -29,8 +29,8 @@ export function AppShell({
   return (
     <div className="min-h-dvh bg-background lg:grid lg:grid-cols-[272px_1fr]">
       <aside className="border-line bg-background/95 supports-[backdrop-filter]:bg-background/85 sticky top-0 z-20 border-b backdrop-blur-md lg:h-dvh lg:border-b-0 lg:border-r">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 lg:h-full lg:flex-col lg:items-stretch lg:px-6 lg:py-7">
-          <Link href="/" className="flex items-center gap-3.5 group">
+        <div className="mx-auto flex max-w-7xl flex-col items-stretch gap-3 px-4 py-3 lg:h-full lg:flex-col lg:px-6 lg:py-7">
+          <Link href="/" className="group flex items-center gap-3.5 self-start">
             <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent text-sm font-bold text-white shadow-[var(--shadow-soft)] transition-transform duration-200 group-hover:scale-105">
               MT
             </span>
@@ -40,7 +40,7 @@ export function AppShell({
             </span>
           </Link>
 
-          <nav className="flex gap-1.5 overflow-x-auto py-1 lg:flex-1 lg:flex-col lg:pt-9">
+          <nav className="-mx-1 flex max-w-full gap-1.5 overflow-x-auto px-1 pb-1 lg:mx-0 lg:flex-1 lg:flex-col lg:overflow-visible lg:px-0 lg:pt-6">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = item.href === "/" 
@@ -51,7 +51,7 @@ export function AppShell({
                 <Link
                   href={item.href}
                   key={item.href}
-                  className={`flex min-h-[44px] shrink-0 items-center gap-3 rounded-xl px-4 text-sm font-semibold transition-all duration-200 ${
+                  className={`flex min-h-[44px] shrink-0 items-center gap-2.5 rounded-xl px-3.5 text-sm font-semibold transition-all duration-200 lg:gap-3 lg:px-4 ${
                     isActive
                       ? "bg-accent text-white shadow-[var(--shadow-soft)]"
                       : "text-muted hover:bg-panel-soft hover:text-foreground"

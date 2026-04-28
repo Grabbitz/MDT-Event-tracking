@@ -71,14 +71,14 @@ export function EventChip({ event }: { event: EventApi }) {
               <p className="text-sm font-black leading-tight text-foreground">{record.name}</p>
               <div className="mt-3 space-y-1.5">
                 <p className="flex items-start gap-1.5 text-[11px] font-bold text-muted">
-                  <span className="opacity-60">📍</span>
+                  <span className="min-w-9 text-[10px] font-black uppercase tracking-wider opacity-60">Loc</span>
                   <span className="break-words">{record.location || "-"}</span>
                 </p>
                 <p className="flex items-start gap-1.5 text-[11px] font-bold text-muted">
-                  <span className="opacity-60">📅</span>
+                  <span className="min-w-9 text-[10px] font-black uppercase tracking-wider opacity-60">Date</span>
                   <span>{formatDateRange(record.startDate, record.endDate)}</span>
                 </p>
-                <p className="pl-5 text-[11px] font-bold text-muted">{formatEventDuration(record.startDate, record.endDate)}</p>
+                <p className="pl-10 text-[11px] font-bold text-muted">{formatEventDuration(record.startDate, record.endDate)}</p>
               </div>
             </motion.div>
           )}
