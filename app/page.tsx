@@ -4,9 +4,13 @@ import { StatCard } from "@/components/stat-card";
 import { formatDateRange } from "@/lib/events";
 import { getDashboardStats } from "@/lib/events";
 
+export const revalidate = 0;
+
 export default async function DashboardPage() {
   const stats = await getDashboardStats();
   const targetProgress = stats.totalTarget > 0 ? Math.round((stats.totalActual / stats.totalTarget) * 100) : 0;
+  
+  const todayEvents = stats.activeToday;
 
   return (
     <div className="mx-auto max-w-6xl space-y-10 py-2 sm:space-y-12 sm:py-4">
@@ -21,10 +25,10 @@ export default async function DashboardPage() {
             </h1>
             <div className="max-w-3xl space-y-3">
               <p className="max-w-2xl text-base font-semibold leading-8 text-[oklch(0.4_0.02_62)] sm:text-[1.25rem]">
-                ข้อมูลตั้งต้นมาจากไฟล์ Excel ปี 2025-26 และจัดให้อยู่ในรูปแบบที่ทีมดูตาราง ปฏิทิน และ export ต่อได้ทันที
+                ข้อมูลเชื่อมต่อจาก Google Sheet (ปี 2025-2026) จัดให้อยู่ในรูปแบบตารางและปฏิทินที่พร้อมใช้งานทันที
               </p>
               <p className="max-w-2xl text-sm leading-7 text-muted">
-                ใช้พื้นที่นี้สำหรับดูภาพรวมงานที่กำลังจะเกิดขึ้น เช็กสถานะการเข้าร่วม และเตรียมไฟล์ทำงานต่อได้จากชุดข้อมูลเดียวกัน
+                พบข้อมูลทั้งหมด {stats.events.length} รายการ ครอบคลุมงานตั้งแต่ต้นปี 2025 จนถึงปลายปี 2026
               </p>
             </div>
           </div>
@@ -38,9 +42,43 @@ export default async function DashboardPage() {
         </div>
       </header>
 
+      {/* Today Section */}
+      {todayEvents.length > 0 && (
+        <section className="space-y-6">
+          <div className="flex items-center gap-3">
+            <div className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
+            <h2 className="text-xl font-bold tracking-tight">กำลังจัดวันนี้ ({todayEvents.length})</h2>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {todayEvents.map(event => (
+              <Link 
+                key={event.id} 
+                href={`/events/${event.id}`}
+                className="group border-line bg-panel hover:bg-panel-soft flex flex-col justify-between rounded-2xl border p-5 shadow-[var(--shadow-soft)] transition-all"
+              >
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full" style={{ background: event.channelColor }} />
+                    <span className="text-[10px] font-black uppercase tracking-wider text-muted">{event.channel}</span>
+                  </div>
+                  <h3 className="mt-2 font-bold leading-snug group-hover:text-accent">{event.name}</h3>
+                  <p className="text-muted mt-1 text-xs">{event.location}</p>
+                </div>
+                <div className="mt-4 flex items-center justify-between border-t border-line/50 pt-3">
+                  <span className="text-[10px] font-bold text-muted">{formatDateRange(event.startDate, event.endDate)}</span>
+                  <span className="text-accent text-[10px] font-black uppercase tracking-widest opacity-0 transition-opacity group-hover:opacity-100">
+                    ดูข้อมูล →
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <StatCard label="อีเวนท์ทั้งหมด" value={stats.events.length.toLocaleString("th-TH")} detail="รวมข้อมูลปี 2025 และ 2026" icon={CalendarCheck} />
-        <StatCard label="กำลังจัดวันนี้" value={stats.activeToday.length.toLocaleString("th-TH")} detail="เทียบกับวันปัจจุบัน" icon={Store} />
+        <StatCard label="กำลังจัดวันนี้" value={todayEvents.length.toLocaleString("th-TH")} detail="เทียบกับวันปัจจุบัน" icon={Store} />
         <StatCard label="เข้าร่วมงาน" value={stats.joining.toLocaleString("th-TH")} detail="รายการที่สถานะเข้าร่วม" icon={Users} />
         <StatCard label="ยอดขายเทียบ target" value={`${targetProgress}%`} detail="พร้อมรองรับ actual sales" icon={CircleDollarSign} />
       </section>

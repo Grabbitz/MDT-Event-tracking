@@ -18,6 +18,12 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
   const [view, setView] = useState("dayGridMonth");
   const calendarRef = useRef<FullCalendar>(null);
 
+  const initialDate = useMemo(() => {
+    const now = new Date().toISOString().slice(0, 10);
+    const upcoming = events.find(e => e.startDate >= now);
+    return upcoming ? upcoming.startDate : events[0]?.startDate;
+  }, [events]);
+
   useEffect(() => {
     const handleResize = () => {
       const newView = window.innerWidth < 768 ? "listWeek" : "dayGridMonth";
@@ -51,6 +57,7 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
           ref={calendarRef}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
           initialView={view}
+          initialDate={initialDate}
           locales={[thLocale]}
           locale="th"
           height="auto"

@@ -1,6 +1,8 @@
 import { EventCalendar } from "@/components/event-calendar";
 import { getEvents } from "@/lib/events";
 
+export const revalidate = 0;
+
 export default async function CalendarPage() {
   const events = await getEvents();
 

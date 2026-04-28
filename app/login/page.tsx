@@ -20,7 +20,7 @@ export default async function LoginPage() {
           <p className="text-muted mt-3 leading-7">
             {isSupabaseConfigured()
               ? "Login เพื่อจัดการอีเวนท์และไฟล์แนบร่วมกับทีม"
-              : "ยังไม่ได้ตั้งค่า Supabase env ตอนนี้แอปจะรันเป็น demo mode จาก Excel seed"}
+              : "ยังไม่ได้ตั้งค่า Supabase env ตอนนี้แอปจะอ่านจาก Google Sheet หรือ local fallback"}
           </p>
         </div>
         {isSupabaseConfigured() ? (
