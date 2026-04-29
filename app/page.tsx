@@ -14,28 +14,26 @@ export default async function DashboardPage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-10 py-2 sm:space-y-12 sm:py-4">
-      <header className="space-y-5 rounded-3xl border border-line bg-panel px-5 py-6 shadow-[var(--shadow-soft)] sm:px-8 sm:py-8">
-        <p className="inline-flex items-center rounded-full bg-accent-soft px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-accent-strong">
-          Modern Trade Workspace
-        </p>
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="space-y-4">
-            <h1 className="max-w-4xl text-[clamp(2.1rem,6vw,4.7rem)] font-black leading-[0.97] tracking-[-0.04em] text-foreground">
-              Event calendar, sales target, and file-ready planning.
-            </h1>
-            <div className="max-w-3xl space-y-3">
-              <p className="max-w-2xl text-base font-semibold leading-8 text-[oklch(0.4_0.02_62)] sm:text-[1.25rem]">
-                ข้อมูลเชื่อมต่อจาก Google Sheet (ปี 2025-2026) จัดให้อยู่ในรูปแบบตารางและปฏิทินที่พร้อมใช้งานทันที
-              </p>
-              <p className="max-w-2xl text-sm leading-7 text-muted">
-                พบข้อมูลทั้งหมด {stats.events.length} รายการ ครอบคลุมงานตั้งแต่ต้นปี 2025 จนถึงปลายปี 2026
-              </p>
+      <header className="rounded-xl border border-line bg-panel px-5 py-6 sm:px-8 sm:py-8">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+          <div className="max-w-3xl space-y-5">
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-muted">
+              Modern Trade Workspace
+            </p>
+            <div className="space-y-3">
+              <h1 className="text-[clamp(2rem,4vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
+                Event tracking dashboard
+              </h1>
+
             </div>
+            <p className="font-mono text-xs font-medium leading-6 text-muted">
+              {stats.events.length.toLocaleString("th-TH")} records / Google Sheet source
+            </p>
           </div>
 
           <Link
             href="/events/new"
-            className="flex min-h-11 items-center justify-center rounded-xl bg-accent px-6 font-bold text-white shadow-[var(--shadow-soft)] transition-all duration-200 hover:bg-accent-strong active:scale-[0.99] lg:min-w-[180px]"
+            className="flex min-h-11 items-center justify-center rounded-md bg-foreground px-6 text-sm font-semibold text-white transition-all duration-200 hover:bg-[oklch(0.3_0.01_70)] active:scale-[0.99] lg:min-w-[160px]"
           >
             เพิ่มอีเวนท์
           </Link>

@@ -70,19 +70,19 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
   }
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4">
       <section className="md:hidden">
-        <div className="border-line bg-panel rounded-2xl border p-4 shadow-[var(--shadow-soft)]">
+        <div className="border-line bg-panel rounded-lg border p-4">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-accent-strong">Mobile agenda</p>
-              <h2 className="mt-2 text-2xl font-black leading-tight tracking-tight text-foreground">
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-muted">Agenda</p>
+              <h2 className="mt-2 text-2xl font-semibold leading-tight tracking-tight text-foreground">
                 {initialDate ? formatMobileMonth(initialDate) : "Calendar"}
               </h2>
             </div>
-            <div className="rounded-xl bg-panel-soft px-3 py-2 text-right">
-              <p className="text-xl font-black leading-none text-foreground">{upcomingCount}</p>
-              <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-muted">Upcoming</p>
+            <div className="border-line rounded-md border bg-panel-soft px-3 py-2 text-right">
+              <p className="text-xl font-semibold leading-none text-foreground">{upcomingCount}</p>
+              <p className="mt-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-muted">Upcoming</p>
             </div>
           </div>
 
@@ -114,11 +114,11 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: groupIndex * 0.035, duration: 0.2 }}
-                className="border-line bg-panel rounded-2xl border p-3 shadow-[var(--shadow-soft)]"
+                className="border-line bg-panel rounded-lg border p-3"
               >
                 <div className="mb-3 flex items-center justify-between px-1">
-                  <p className="text-sm font-black text-foreground">{formatMobileDateHeading(group.date)}</p>
-                  <p className="text-xs font-bold text-muted">{group.events.length} งาน</p>
+                  <p className="text-sm font-semibold text-foreground">{formatMobileDateHeading(group.date)}</p>
+                  <p className="font-mono text-xs font-semibold text-muted">{group.events.length} งาน</p>
                 </div>
                 <div className="space-y-2">
                   {group.events.map((event) => (
@@ -133,8 +133,8 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
               </motion.section>
             ))
           ) : (
-            <div className="border-line bg-panel rounded-2xl border p-6 text-center shadow-[var(--shadow-soft)]">
-              <p className="text-base font-black text-foreground">ยังไม่มีอีเวนท์ในช่องทางนี้</p>
+            <div className="border-line bg-panel rounded-lg border p-6 text-center">
+              <p className="text-base font-semibold text-foreground">ยังไม่มีอีเวนท์ในช่องทางนี้</p>
               <p className="mt-2 text-sm leading-6 text-muted">ลองเลือกช่องทางอื่น หรือกลับไปดูทั้งหมด</p>
             </div>
           )}
@@ -145,8 +145,8 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
         </div>
       </section>
 
-      <section className="hidden gap-5 md:grid xl:grid-cols-[minmax(0,1fr)_340px]">
-        <div className="border-line bg-panel overflow-hidden rounded-2xl border p-4 shadow-[var(--shadow-soft)]">
+      <section className="hidden gap-4 md:grid xl:grid-cols-[minmax(0,1fr)_340px]">
+        <div className="notion-calendar-shell border-line bg-panel overflow-hidden rounded-lg border">
           <FullCalendar
             ref={calendarRef}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
@@ -189,13 +189,14 @@ function ChannelButton({
     <button
       type="button"
       onClick={onClick}
-      className={`flex min-h-11 shrink-0 items-center gap-2 rounded-full border px-3.5 text-sm font-black transition active:scale-[0.98] ${
-        active ? "border-accent bg-accent text-white" : "border-line bg-panel-soft text-foreground"
+      className={`flex min-h-10 shrink-0 items-center gap-2 rounded-md border px-3 text-sm font-semibold transition active:scale-[0.98] ${
+        active ? "border-foreground bg-foreground" : "border-line bg-panel text-foreground hover:bg-panel-soft"
       }`}
+      style={active ? { color: "white" } : undefined}
     >
       {color ? <span className="h-2.5 w-2.5 rounded-full" style={{ background: color }} /> : null}
       <span>{label}</span>
-      <span className={active ? "text-white/75" : "text-muted"}>{count}</span>
+      <span className={active ? "" : "text-muted"} style={active ? { color: "rgba(255, 255, 255, 0.75)" } : undefined}>{count}</span>
     </button>
   );
 }
@@ -213,21 +214,21 @@ function MobileEventButton({
     <button
       type="button"
       onClick={onClick}
-      className={`grid min-h-[86px] w-full grid-cols-[56px_minmax(0,1fr)] gap-3 rounded-xl border p-3 text-left transition active:scale-[0.99] ${
-        selected ? "border-accent bg-accent-soft" : "border-transparent bg-panel-soft"
+      className={`grid min-h-[86px] w-full grid-cols-[52px_minmax(0,1fr)] gap-3 rounded-lg border p-3 text-left transition active:scale-[0.99] ${
+        selected ? "border-foreground bg-panel-soft" : "border-line bg-panel"
       }`}
     >
-      <div className="grid h-14 place-items-center rounded-lg bg-panel text-center shadow-[inset_0_0_0_1px_var(--line)]">
-        <span className="block text-lg font-black leading-none text-foreground">{formatDay(event.startDate)}</span>
-        <span className="mt-1 block text-[10px] font-black uppercase tracking-wider text-muted">{formatShortMonth(event.startDate)}</span>
+      <div className="border-line grid h-13 place-items-center rounded-md border bg-panel text-center">
+        <span className="block text-lg font-semibold leading-none text-foreground">{formatDay(event.startDate)}</span>
+        <span className="mt-1 block font-mono text-[10px] font-semibold uppercase tracking-wider text-muted">{formatShortMonth(event.startDate)}</span>
       </div>
       <div className="min-w-0">
         <div className="flex items-center gap-2">
           <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: event.channelColor }} />
-          <span className="truncate text-[11px] font-black uppercase tracking-wider text-accent-strong">{event.channel}</span>
+          <span className="truncate font-mono text-[11px] font-semibold uppercase tracking-wider text-muted">{event.channel}</span>
         </div>
-        <p className="mt-1 line-clamp-2 break-words text-sm font-black leading-snug text-foreground">{event.name}</p>
-        <div className="mt-2 flex flex-wrap items-center gap-2 text-[11px] font-bold text-muted">
+        <p className="mt-1 line-clamp-2 break-words text-sm font-semibold leading-snug text-foreground">{event.name}</p>
+        <div className="mt-2 flex flex-wrap items-center gap-2 text-[11px] font-medium text-muted">
           <span>{formatEventDuration(event.startDate, event.endDate)}</span>
           <span className="text-muted/50">|</span>
           <span className="truncate">{event.location || "ไม่ระบุสถานที่"}</span>
@@ -240,7 +241,7 @@ function MobileEventButton({
 function SelectedEventPanel({ selected, compact = false }: { selected: EventRecord | undefined; compact?: boolean }) {
   return (
     <aside
-      className={`border-line bg-panel relative overflow-hidden rounded-2xl border p-5 shadow-[var(--shadow-soft)] ${
+      className={`border-line bg-panel relative overflow-hidden rounded-lg border p-5 ${
         compact ? "" : "p-6"
       }`}
     >
@@ -257,12 +258,12 @@ function SelectedEventPanel({ selected, compact = false }: { selected: EventReco
             <div>
               <div className="flex items-center gap-2">
                 <span className="h-3 w-3 rounded-full" style={{ background: selected.channelColor }} />
-                <p className="text-xs font-black uppercase tracking-widest text-accent-strong">{selected.channel}</p>
+                <p className="font-mono text-xs font-semibold uppercase tracking-widest text-muted">{selected.channel}</p>
               </div>
-              <h2 className="mt-3 text-2xl font-black leading-tight tracking-tight text-foreground">{selected.name}</h2>
+              <h2 className="mt-3 text-2xl font-semibold leading-tight tracking-tight text-foreground">{selected.name}</h2>
               <div className="mt-3 flex flex-wrap items-center gap-2">
-                <p className="text-sm font-bold text-muted">{formatDateRange(selected.startDate, selected.endDate)}</p>
-                <span className="rounded-full bg-accent-soft px-2.5 py-1 text-[11px] font-black tracking-wide text-accent-strong">
+                <p className="text-sm font-medium text-muted">{formatDateRange(selected.startDate, selected.endDate)}</p>
+                <span className="rounded-full bg-panel-soft px-2.5 py-1 font-mono text-[11px] font-semibold tracking-wide text-muted">
                   {formatEventDuration(selected.startDate, selected.endDate)}
                 </span>
               </div>
@@ -277,7 +278,8 @@ function SelectedEventPanel({ selected, compact = false }: { selected: EventReco
 
             <Link
               href={`/events/${selected.id}`}
-              className="inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-accent px-6 text-sm font-black text-white transition hover:bg-accent-strong active:scale-[0.98]"
+              className="inline-flex min-h-11 w-full items-center justify-center rounded-md bg-foreground px-6 text-sm font-semibold transition hover:bg-[oklch(0.3_0.01_70)] active:scale-[0.98]"
+              style={{ color: "white" }}
             >
               ดูรายละเอียดแบบเต็ม
             </Link>
@@ -295,8 +297,8 @@ function SelectedEventPanel({ selected, compact = false }: { selected: EventReco
 function DetailItem({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="mb-0.5 text-[11px] font-black uppercase tracking-wider text-muted">{label}</dt>
-      <dd className="text-sm font-bold text-foreground">{value}</dd>
+      <dt className="mb-0.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-muted">{label}</dt>
+      <dd className="text-sm font-medium text-foreground">{value}</dd>
     </div>
   );
 }

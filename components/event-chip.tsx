@@ -12,6 +12,7 @@ import {
   useInteractions,
   FloatingPortal,
   safePolygon,
+  useClientPoint,
 } from "@floating-ui/react";
 import type { EventApi } from "@fullcalendar/core";
 import { formatDateRange, formatEventDuration } from "@/lib/event-format";
@@ -23,16 +24,16 @@ export function EventChip({ event }: { event: EventApi }) {
     open: isOpen,
     onOpenChange: setIsOpen,
     strategy: "fixed",
-    middleware: [offset(8), flip({ padding: 12 }), shift({ padding: 12 })],
+    middleware: [offset(16), flip({ padding: 12 }), shift({ padding: 12 })],
     whileElementsMounted: autoUpdate,
   });
 
   const hover = useHover(context, {
-    move: false,
     delay: { open: 80, close: 40 },
     handleClose: safePolygon(),
   });
-  const { getReferenceProps, getFloatingProps } = useInteractions([hover]);
+  const clientPoint = useClientPoint(context);
+  const { getReferenceProps, getFloatingProps } = useInteractions([hover, clientPoint]);
 
   const record = event.extendedProps.record as EventRecord;
 
@@ -41,13 +42,13 @@ export function EventChip({ event }: { event: EventApi }) {
       <motion.div
         ref={refs.setReference}
         {...getReferenceProps()}
-        whileHover={{ scale: 1.01 }}
-        className="cursor-pointer overflow-hidden rounded-md px-2 py-0.5 text-[11px] leading-4 font-black text-white"
+        whileHover={{ opacity: 0.88 }}
+        className="cursor-pointer overflow-hidden rounded-sm px-1.5 py-0.5 text-[11px] leading-4 font-semibold text-white"
         style={{ backgroundColor: record.channelColor }}
       >
         <div className="flex min-w-0 items-center gap-1 truncate">
-          <span className="shrink-0 opacity-80">{record.channel}</span>
-          <span className="opacity-40">|</span>
+          <span className="shrink-0 text-white/85">{record.channel}</span>
+          <span className="text-white/45">/</span>
           <span className="truncate">{record.name}</span>
         </div>
       </motion.div>
@@ -57,7 +58,10 @@ export function EventChip({ event }: { event: EventApi }) {
           {isOpen && (
             <motion.div
               ref={refs.setFloating}
-              style={floatingStyles}
+              style={{
+                ...floatingStyles,
+                visibility: context.isPositioned ? "visible" : "hidden",
+              }}
               {...getFloatingProps()}
               initial={{ opacity: 0, scale: 0.96, y: 4 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -66,19 +70,19 @@ export function EventChip({ event }: { event: EventApi }) {
             >
               <div className="mb-2 flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full" style={{ background: record.channelColor }} />
-                <span className="text-[10px] font-black uppercase tracking-[0.22em] text-accent-strong">{record.channel}</span>
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-muted">{record.channel}</span>
               </div>
-              <p className="text-sm font-black leading-tight text-foreground">{record.name}</p>
+              <p className="text-sm font-semibold leading-tight text-foreground">{record.name}</p>
               <div className="mt-3 space-y-1.5">
-                <p className="flex items-start gap-1.5 text-[11px] font-bold text-muted">
-                  <span className="min-w-9 text-[10px] font-black uppercase tracking-wider opacity-60">Loc</span>
+                <p className="flex items-start gap-1.5 text-[11px] font-medium text-muted">
+                  <span className="min-w-9 font-mono text-[10px] font-semibold uppercase tracking-wider opacity-60">Loc</span>
                   <span className="break-words">{record.location || "-"}</span>
                 </p>
-                <p className="flex items-start gap-1.5 text-[11px] font-bold text-muted">
-                  <span className="min-w-9 text-[10px] font-black uppercase tracking-wider opacity-60">Date</span>
+                <p className="flex items-start gap-1.5 text-[11px] font-medium text-muted">
+                  <span className="min-w-9 font-mono text-[10px] font-semibold uppercase tracking-wider opacity-60">Date</span>
                   <span>{formatDateRange(record.startDate, record.endDate)}</span>
                 </p>
-                <p className="pl-10 text-[11px] font-bold text-muted">{formatEventDuration(record.startDate, record.endDate)}</p>
+                <p className="pl-10 text-[11px] font-medium text-muted">{formatEventDuration(record.startDate, record.endDate)}</p>
               </div>
             </motion.div>
           )}

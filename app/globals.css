@@ -30,7 +30,9 @@
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
-  --font-sans: "Noto Sans Thai", "Aptos", "Segoe UI", sans-serif;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --font-sans: var(--font-noto-sans-thai), "Aptos", "Segoe UI", sans-serif;
   --radius-lg: var(--radius-lg);
   --radius-md: var(--radius-md);
   --radius-sm: var(--radius-sm);
@@ -45,10 +47,17 @@ body {
   min-height: 100dvh;
   background-color: var(--background);
   color: var(--foreground);
-  font-family: "Noto Sans Thai", "Aptos", "Segoe UI", sans-serif;
+  font-family: var(--font-noto-sans-thai), "Aptos", "Segoe UI", sans-serif;
   letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+code,
+kbd,
+pre,
+.font-mono {
+  font-family: "SF Mono", "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
 }
 
 a {
@@ -84,37 +93,111 @@ button {
   }
 }
 
-/* Update .fc overrides in globals.css */
 .fc {
   --fc-border-color: var(--line);
-  --fc-button-bg-color: var(--accent);
-  --fc-button-border-color: var(--accent);
-  --fc-button-hover-bg-color: var(--accent-strong);
-  --fc-button-hover-border-color: var(--accent-strong);
-  --fc-today-bg-color: transparent !important;
+  --fc-button-bg-color: var(--panel);
+  --fc-button-border-color: var(--line);
+  --fc-button-text-color: var(--foreground);
+  --fc-button-hover-bg-color: var(--panel-soft);
+  --fc-button-hover-border-color: var(--line);
+  --fc-button-active-bg-color: var(--foreground);
+  --fc-button-active-border-color: var(--foreground);
+  --fc-today-bg-color: color-mix(in oklab, var(--panel-soft) 72%, white) !important;
+  color: var(--foreground);
+  font-size: 13px;
 }
 
-/* Today highlight as a soft circle */
+.notion-calendar-shell .fc {
+  padding: 18px;
+}
+
+.fc .fc-toolbar {
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.fc .fc-toolbar-title {
+  color: var(--foreground);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.fc .fc-button {
+  border-radius: 6px !important;
+  box-shadow: none !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 7px 10px !important;
+  text-transform: capitalize !important;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+  color: white;
+}
+
+.fc .fc-button:focus,
+.fc .fc-button:active {
+  box-shadow: none !important;
+}
+
+.fc .fc-col-header-cell {
+  background: var(--panel);
+  border-color: var(--line);
+}
+
+.fc .fc-col-header-cell-cushion {
+  color: var(--muted);
+  font-family: "SF Mono", "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 11px 6px;
+  text-transform: uppercase;
+}
+
+.fc .fc-scrollgrid,
+.fc .fc-scrollgrid-section > td,
+.fc .fc-daygrid-day,
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border-color: var(--line);
+}
+
+.fc .fc-daygrid-day-frame {
+  min-height: 118px;
+  padding: 4px;
+}
+
 .fc .fc-day-today .fc-daygrid-day-number {
-  background: var(--accent-soft);
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  background: var(--foreground);
+  border-radius: 6px;
+  color: white !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 4px;
-  color: var(--accent-strong) !important;
+  height: 28px;
+  margin: 6px;
+  width: 28px;
 }
 
-/* Day numbers */
 .fc .fc-daygrid-day-number {
-  font-size: 1.1rem; /* Slightly larger as requested */
-  font-weight: 800;
+  color: var(--muted);
+  font-family: "SF Mono", "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 600;
   padding: 8px;
 }
 
-/* Hide default event styling to use custom chips */
+.fc .fc-day-other {
+  background: color-mix(in oklab, var(--panel-soft) 55%, white);
+}
+
+.fc .fc-day-other .fc-daygrid-day-number {
+  opacity: 0.38;
+}
+
 .fc-v-event, .fc-h-event {
   background-color: transparent !important;
   border: none !important;
@@ -134,16 +217,36 @@ button {
 }
 
 .fc .fc-daygrid-day-events {
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
-/* Custom tooltip style */
+.fc .fc-daygrid-more-link {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  padding-left: 2px;
+}
+
+.fc .fc-list {
+  border-color: var(--line);
+}
+
+.fc .fc-list-day-cushion {
+  background: var(--panel-soft) !important;
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.fc .fc-list-event:hover td {
+  background: var(--panel-soft);
+}
+
 .calendar-tooltip {
   z-index: 9999;
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 14px;
   width: min(320px, calc(100vw - 24px));
-  box-shadow: 0 20px 40px -18px rgb(15 23 42 / 0.24), 0 12px 24px -18px rgb(15 23 42 / 0.2);
+  box-shadow: 0 8px 24px rgb(15 23 42 / 0.05);
 }
