@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: oklch(0.984 0.002 80);
-  --foreground: oklch(0.24 0.01 70);
-  --muted: oklch(0.52 0.008 70);
-  --line: oklch(0.9 0.005 70);
-  --panel: oklch(1 0 0);
-  --panel-soft: oklch(0.965 0.003 70);
-  --accent: oklch(0.69 0.17 55);
-  --accent-strong: oklch(0.61 0.18 50);
-  --accent-soft: oklch(0.94 0.035 58);
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --muted: #8b8b8b;
+  --line: #e8e8e8;
+  --panel: #ffffff;
+  --panel-soft: #f5f5f5;
+  --accent: oklch(0.66 0.17 45);
+  --accent-strong: oklch(0.58 0.19 42);
+  --accent-soft: oklch(0.96 0.025 55);
   --green: oklch(0.65 0.15 150);
   --red: oklch(0.6 0.18 25);
   --blue: oklch(0.56 0.08 240);
-  --radius-lg: 16px;
-  --radius-md: 12px;
-  --radius-sm: 8px;
-  --shadow-soft: 0 10px 28px -20px rgb(16 24 40 / 0.22);
-  --shadow-card: 0 18px 42px -28px rgb(16 24 40 / 0.26);
+  --radius-lg: 8px;
+  --radius-md: 6px;
+  --radius-sm: 4px;
+  --shadow-soft: 0 1px 3px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-card: 0 2px 8px rgb(0 0 0 / 0.07), 0 1px 3px rgb(0 0 0 / 0.05);
 }
 
 @theme inline {
@@ -102,34 +102,34 @@ button {
   --fc-button-hover-border-color: var(--line);
   --fc-button-active-bg-color: var(--foreground);
   --fc-button-active-border-color: var(--foreground);
-  --fc-today-bg-color: color-mix(in oklab, var(--panel-soft) 72%, white) !important;
+  --fc-today-bg-color: oklch(0.97 0.012 55) !important;
   color: var(--foreground);
   font-size: 13px;
 }
 
 .notion-calendar-shell .fc {
-  padding: 18px;
+  padding: 16px;
 }
 
 .fc .fc-toolbar {
   align-items: center;
-  gap: 12px;
-  margin-bottom: 18px;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
 .fc .fc-toolbar-title {
   color: var(--foreground);
-  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
   font-weight: 600;
   letter-spacing: -0.02em;
 }
 
 .fc .fc-button {
-  border-radius: 6px !important;
+  border-radius: 4px !important;
   box-shadow: none !important;
   font-size: 12px !important;
-  font-weight: 600 !important;
-  padding: 7px 10px !important;
+  font-weight: 500 !important;
+  padding: 5px 9px !important;
   text-transform: capitalize !important;
 }
 
@@ -149,11 +149,10 @@ button {
 
 .fc .fc-col-header-cell-cushion {
   color: var(--muted);
-  font-family: "SF Mono", "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  padding: 11px 6px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 9px 6px;
   text-transform: uppercase;
 }
 
@@ -166,36 +165,35 @@ button {
 }
 
 .fc .fc-daygrid-day-frame {
-  min-height: 118px;
-  padding: 4px;
+  min-height: 110px;
+  padding: 3px;
 }
 
 .fc .fc-day-today .fc-daygrid-day-number {
-  background: var(--foreground);
-  border-radius: 6px;
+  background: var(--accent);
+  border-radius: 50%;
   color: white !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 28px;
-  margin: 6px;
-  width: 28px;
+  height: 26px;
+  margin: 5px;
+  width: 26px;
 }
 
 .fc .fc-daygrid-day-number {
   color: var(--muted);
-  font-family: "SF Mono", "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
   font-size: 12px;
-  font-weight: 600;
-  padding: 8px;
+  font-weight: 500;
+  padding: 6px;
 }
 
 .fc .fc-day-other {
-  background: color-mix(in oklab, var(--panel-soft) 55%, white);
+  background: #fafafa;
 }
 
 .fc .fc-day-other .fc-daygrid-day-number {
-  opacity: 0.38;
+  opacity: 0.35;
 }
 
 .fc-v-event, .fc-h-event {
@@ -217,13 +215,13 @@ button {
 }
 
 .fc .fc-daygrid-day-events {
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
 .fc .fc-daygrid-more-link {
   color: var(--muted);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   padding-left: 2px;
 }
 
@@ -234,7 +232,7 @@ button {
 .fc .fc-list-day-cushion {
   background: var(--panel-soft) !important;
   color: var(--foreground);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .fc .fc-list-event:hover td {
@@ -245,8 +243,8 @@ button {
   z-index: 9999;
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 14px;
-  width: min(320px, calc(100vw - 24px));
-  box-shadow: 0 8px 24px rgb(15 23 42 / 0.05);
+  border-radius: 6px;
+  padding: 12px;
+  width: min(300px, calc(100vw - 24px));
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.08);
 }

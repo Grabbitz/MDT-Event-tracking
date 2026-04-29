@@ -11,15 +11,15 @@ const navItems = [
   { href: "/", label: "Dashboard", icon: Gauge },
   { href: "/calendar", label: "Calendar", icon: CalendarDays },
   { href: "/events", label: "Events", icon: ListFilter },
-  { href: "/events/new", label: "New", icon: Plus },
+  { href: "/events/new", label: "New Event", icon: Plus },
   { href: "/settings/channels", label: "Channels", icon: Settings2 },
 ];
 
-export function AppShell({ 
+export function AppShell({
   children,
   userEmail,
   sourceLabel,
-}: { 
+}: {
   children: ReactNode;
   userEmail: string | null;
   sourceLabel: string;
@@ -27,75 +27,87 @@ export function AppShell({
   const pathname = usePathname();
 
   return (
-    <div className="min-h-dvh bg-background lg:grid lg:grid-cols-[272px_1fr]">
-      <aside className="border-line bg-background/95 supports-[backdrop-filter]:bg-background/85 sticky top-0 z-20 border-b backdrop-blur-md lg:h-dvh lg:border-b-0 lg:border-r">
-        <div className="mx-auto flex max-w-7xl flex-col items-stretch gap-3 px-4 py-3 lg:h-full lg:flex-col lg:px-6 lg:py-7">
-          <Link href="/" className="group flex items-center gap-3.5 self-start">
-            <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent text-sm font-bold text-white shadow-[var(--shadow-soft)] transition-transform duration-200 group-hover:scale-105">
+    <div className="min-h-dvh bg-background lg:grid lg:grid-cols-[240px_1fr]">
+      <aside className="border-line bg-background sticky top-0 z-20 border-b lg:h-dvh lg:border-b-0 lg:border-r">
+        <div className="mx-auto flex max-w-7xl flex-col items-stretch gap-1 px-3 py-4 lg:h-full lg:flex-col lg:px-3 lg:py-5">
+
+          {/* Workspace header */}
+          <Link href="/" className="group mb-3 flex items-center gap-2.5 rounded-md px-2 py-2 transition-colors hover:bg-panel-soft">
+            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-accent text-[11px] font-bold text-white">
               MT
             </span>
             <span className="leading-tight">
-              <span className="block text-base font-bold tracking-tight text-foreground">Workspace</span>
-              <span className="text-muted block text-xs font-semibold uppercase tracking-wider">Event Tracking</span>
+              <span className="block text-sm font-semibold tracking-tight text-foreground">MT Workspace</span>
+              <span className="block text-[10px] text-muted">Event Tracking</span>
             </span>
           </Link>
 
-          <nav className="-mx-1 flex max-w-full gap-1.5 overflow-x-auto px-1 pb-1 lg:mx-0 lg:flex-1 lg:flex-col lg:overflow-visible lg:px-0 lg:pt-6">
+          <div className="border-line mb-1 border-t" />
+
+          {/* Nav */}
+          <nav className="flex max-w-full gap-0.5 overflow-x-auto pb-1 lg:flex-1 lg:flex-col lg:overflow-visible lg:pb-0">
             {navItems.map((item) => {
               const Icon = item.icon;
-              const isActive = item.href === "/" 
-                ? pathname === "/" 
+              const isActive = item.href === "/"
+                ? pathname === "/"
                 : pathname.startsWith(item.href);
 
               return (
                 <Link
                   href={item.href}
                   key={item.href}
-                  className={`flex min-h-[44px] shrink-0 items-center gap-2.5 rounded-xl px-3.5 text-sm font-semibold transition-all duration-200 lg:gap-3 lg:px-4 ${
+                  className={`flex min-h-[34px] shrink-0 items-center gap-2.5 rounded-md px-2.5 text-sm transition-colors duration-150 ${
                     isActive
-                      ? "bg-accent text-white shadow-[var(--shadow-soft)]"
-                      : "text-muted hover:bg-panel-soft hover:text-foreground"
+                      ? "bg-accent-soft font-semibold text-accent"
+                      : "font-medium text-muted hover:bg-panel-soft hover:text-foreground"
                   }`}
                   aria-current={isActive ? "page" : undefined}
                 >
-                  <Icon aria-hidden className={`h-[18px] w-[18px] ${isActive ? "text-white" : ""}`} />
+                  <Icon aria-hidden className="h-4 w-4 shrink-0" />
                   <span>{item.label}</span>
                 </Link>
               );
             })}
           </nav>
 
-          <div className="border-line hidden rounded-2xl border bg-panel p-4 text-xs text-muted shadow-[var(--shadow-soft)] lg:block">
+          {/* User card */}
+          <div className="border-line hidden border-t pt-3 lg:block">
             {isSupabaseConfigured() ? (
-              <div className="space-y-4">
-                <div>
-                  <p className="font-bold text-foreground overflow-hidden text-ellipsis whitespace-nowrap">{userEmail ?? "Guest User"}</p>
-                  <p className="text-[10px] uppercase tracking-widest font-bold mt-0.5 opacity-60">Manager Access</p>
+              <div className="space-y-2">
+                <div className="px-2">
+                  <p className="truncate text-xs font-semibold text-foreground">{userEmail ?? "Guest"}</p>
+                  <p className="text-[10px] text-muted">Manager Access</p>
                 </div>
                 {userEmail ? (
                   <form action={signOut}>
-                    <button type="submit" className="flex min-h-10 w-full items-center justify-center gap-2 rounded-lg bg-foreground/5 py-2 font-bold text-foreground transition hover:bg-foreground/10">
+                    <button
+                      type="submit"
+                      className="flex min-h-8 w-full items-center gap-2 rounded-md px-2.5 text-xs font-medium text-muted transition-colors hover:bg-panel-soft hover:text-foreground"
+                    >
                       <LogOut aria-hidden className="h-3.5 w-3.5" />
-                      Logout
+                      Sign out
                     </button>
                   </form>
                 ) : (
-                  <Link href="/login" className="flex min-h-10 w-full items-center justify-center gap-2 rounded-lg bg-accent py-2 font-bold text-white transition hover:bg-accent-strong">
+                  <Link
+                    href="/login"
+                    className="flex min-h-8 w-full items-center gap-2 rounded-md bg-accent px-2.5 text-xs font-semibold text-white transition-colors hover:bg-accent-strong"
+                  >
                     <LogIn aria-hidden className="h-3.5 w-3.5" />
-                    Login
+                    Sign in
                   </Link>
                 )}
               </div>
             ) : (
-              <div className="space-y-2">
-                <p className="font-bold text-foreground">Local Mode</p>
-                <p className="leading-normal opacity-80">Using {sourceLabel} data for planning.</p>
+              <div className="px-2 space-y-0.5">
+                <p className="text-xs font-semibold text-foreground">Local Mode</p>
+                <p className="text-[11px] text-muted leading-normal">{sourceLabel} source</p>
               </div>
             )}
           </div>
         </div>
       </aside>
-      <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-9">{children}</main>
+      <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">{children}</main>
     </div>
   );
 }
