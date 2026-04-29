@@ -232,11 +232,14 @@ function clean(value: unknown) {
 }
 
 function slug(value: string) {
-  return value
+  const slugged = value
+    .normalize("NFKD")
     .toLowerCase()
-    .replace(/[^a-z0-9ก-๙]+/gi, "-")
+    .replace(/[^a-z0-9]+/gi, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, 48);
+
+  return slugged || "event";
 }
 
 function isEventRecord(event: EventRecord | null): event is EventRecord {
