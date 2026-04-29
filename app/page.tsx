@@ -5,6 +5,7 @@ import { formatDateRange } from "@/lib/events";
 import { getDashboardStats } from "@/lib/events";
 
 export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
   const stats = await getDashboardStats();

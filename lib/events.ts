@@ -1,5 +1,6 @@
 import legacyEvents from "@/lib/legacy-events.json";
 import { isSupabaseConfigured } from "@/lib/env";
+import { unstable_rethrow } from "next/navigation";
 export { formatDate, formatDateRange, getStatusClass, getStatusLabel } from "@/lib/event-format";
 import { getGoogleSheetEvents, isGoogleSheetConfigured } from "@/lib/google-sheet-events";
 import { createOptionalClient } from "@/lib/supabase/server";
@@ -45,6 +46,7 @@ export async function getFallbackEvents() {
   try {
     return await getGoogleSheetEvents();
   } catch (error) {
+    unstable_rethrow(error);
     console.warn("Falling back to legacy events:", error instanceof Error ? error.message : error);
     return getLegacyEvents();
   }
@@ -64,6 +66,7 @@ export async function getEvents() {
     .order("start_date", { ascending: true });
 
   if (error) {
+    unstable_rethrow(error);
     console.warn("Falling back to legacy events:", error.message);
     return getFallbackEvents();
   }
