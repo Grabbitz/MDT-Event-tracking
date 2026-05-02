@@ -892,9 +892,9 @@
     "salesStaffRequired": true
   },
   {
-    "id": "2025-50-object-object",
+    "id": "2025-50-betrend-thapra-event-ชั้น-m-gift-fest-x-monchhic",
     "year": 2025,
-    "name": "[object Object]",
+    "name": "Betrend Thapra Event ชั้น M\n- GIFT FEST X MONCHHICHI",
     "channel": "Betrend",
     "channelColor": "#d95a1f",
     "location": "The Mall Lifestore Tha Phra",
@@ -910,9 +910,9 @@
     "salesStaffRequired": true
   },
   {
-    "id": "2026-3-object-object",
+    "id": "2026-3-betrend-บางแค-m-grand-hall-ชั้น-m",
     "year": 2026,
-    "name": "[object Object]",
+    "name": "Betrend บางแค\n- M Grand Hall ชั้น M",
     "channel": "Betrend",
     "channelColor": "#d95a1f",
     "location": "The Mall Lifestore Bangkae",
@@ -930,9 +930,9 @@
     "salesStaffRequired": true
   },
   {
-    "id": "2026-4-object-object",
+    "id": "2026-4-cds-พระราม9-พื้นที่โปรโมชั่น-ชั้น-1",
     "year": 2026,
-    "name": "[object Object]",
+    "name": "CDS พระราม9\n- พื้นที่โปรโมชั่น ชั้น 1",
     "channel": "CDS",
     "channelColor": "#a53f2b",
     "location": "Central Rama9",
@@ -950,9 +950,9 @@
     "salesStaffRequired": true
   },
   {
-    "id": "2026-5-object-object",
+    "id": "2026-5-betrend-บางกะปิ-หน้าทางเข้าลานจอดรถ-ชั้น-1-แผนก-",
     "year": 2026,
-    "name": "[object Object]",
+    "name": "Betrend บางกะปิ\n- หน้าทางเข้าลานจอดรถ \nชั้น 1 แผนก Betrend",
     "channel": "Betrend",
     "channelColor": "#d95a1f",
     "location": "The Mall Bang Kapi",
@@ -970,9 +970,9 @@
     "salesStaffRequired": true
   },
   {
-    "id": "2026-6-object-object",
+    "id": "2026-6-b2s-ofm-super-sale-design-village-เกษตร-นวมินทร์",
     "year": 2026,
-    "name": "[object Object]",
+    "name": "B2S / OFM SUPER Sale \n@ Design village เกษตร-นวมินทร์",
     "channel": "OFM",
     "channelColor": "#6f5cc2",
     "location": "Design Village Kaset Nawamin",
@@ -986,9 +986,9 @@
     "salesStaffRequired": true
   },
   {
-    "id": "2026-7-object-object",
+    "id": "2026-7-event-themp-store-go-wholesale-chiang-mai-airpor",
     "year": 2026,
-    "name": "GO Wholesale Event",
+    "name": "Event Themp Store \n@ Go Wholesale Chiang Mai Airport",
     "channel": "OFM",
     "channelColor": "#6f5cc2",
     "location": "GO Wholesale Chiang Mai",
@@ -1018,9 +1018,9 @@
     "salesStaffRequired": true
   },
   {
-    "id": "2026-9-object-object",
+    "id": "2026-9-betrend-บางกะปิ-m-grand-hall-ชั้น-m",
     "year": 2026,
-    "name": "[object Object]",
+    "name": "Betrend บางกะปิ\n- M Grand Hall ชั้น M",
     "channel": "Betrend",
     "channelColor": "#d95a1f",
     "location": "The Mall Bang Kapi",
@@ -1036,9 +1036,9 @@
     "salesStaffRequired": true
   },
   {
-    "id": "2026-10-object-object",
+    "id": "2026-10-betrend-บางแค-m-grand-hall-ชั้น-m",
     "year": 2026,
-    "name": "[object Object]",
+    "name": "Betrend บางแค\n- M Grand Hall ชั้น M",
     "channel": "Betrend",
     "channelColor": "#d95a1f",
     "location": "เดอะมอลล์ไลฟ์สโตร์ บางแค",
@@ -1168,9 +1168,9 @@
     "salesStaffRequired": true
   },
   {
-    "id": "2026-18-object-object",
+    "id": "2026-18-event-b2s-ofm-shop-with-passion-design-village-บ",
     "year": 2026,
-    "name": "[object Object]",
+    "name": "Event B2S & OFM SHOP WITH PASSION \n @ Design village บางนา",
     "channel": "OFM",
     "channelColor": "#6f5cc2",
     "location": "ดีไซน์วิลเลจ บางนา",
@@ -1363,7 +1363,7 @@
     "endDate": "2026-04-10",
     "boothSize": "",
     "boothZone": "",
-    "details": "[object Object]",
+    "details": "Period  30 Apr – 10 May 2025\nพื้นที่   16.25  \nSetup  27 Apr 2026   เวลา 17.00 – 23.00\nรื้อถอน   10 May 2026  เวลา 22.00\nเบอริติดต่อสาขา คุณเอ็ม 092-7190444\n***เปิด PO จบงาน RTV ของกลับ",
     "conditions": "",
     "participationStatus": "joining",
     "salesStaffRequired": true

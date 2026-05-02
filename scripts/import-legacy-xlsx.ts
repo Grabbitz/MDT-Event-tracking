@@ -188,6 +188,7 @@ function normalizeCellValue(value: ExcelJS.CellValue): string | number | Date | 
   if (value == null) return undefined;
   if (value instanceof Date || typeof value === "number" || typeof value === "string") return value;
   if (typeof value === "object" && "text" in value) return value.text;
+  if (typeof value === "object" && "richText" in value) return value.richText.map((part) => part.text).join("");
   if (typeof value === "object" && "result" in value) return normalizeCellValue(value.result as ExcelJS.CellValue);
   return String(value);
 }
