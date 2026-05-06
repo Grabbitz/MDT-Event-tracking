@@ -8,7 +8,7 @@ import thLocale from "@fullcalendar/core/locales/th";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { EventChip } from "./event-chip";
-import { formatDateRange, getStatusLabel } from "@/lib/event-format";
+import { formatDateRange, formatEventDuration, getStatusLabel } from "@/lib/event-format";
 import type { EventRecord } from "@/lib/types";
 
 export function EventCalendar({ events }: { events: EventRecord[] }) {
@@ -26,8 +26,8 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
   , [events]);
 
   return (
-    <div className="flex flex-col gap-6 lg:flex-row">
-      <section className="flex-1 rounded-2xl border border-line bg-surface p-6 shadow-sm">
+    <div className="space-y-5">
+      <section className="frosted-card calendar-surface rounded-[30px] p-3 sm:p-5">
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
@@ -35,6 +35,8 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
           locale="th"
           height="auto"
           events={calendarEvents}
+          dayMaxEvents={3}
+          moreLinkClick="popover"
           eventContent={(info) => <EventChip event={info.event} />}
           eventClick={(info) => setSelectedId(info.event.id)}
           headerToolbar={{
@@ -45,50 +47,39 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
         />
       </section>
 
-      <aside className="w-full lg:w-80 shrink-0">
-        <div className="sticky top-8 rounded-2xl border border-line bg-surface p-6 shadow-sm min-h-[400px]">
-          <AnimatePresence mode="wait">
-            {selected ? (
-              <motion.div
-                key={selected.id}
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                className="flex flex-col h-full"
+      <AnimatePresence mode="wait">
+        {selected ? (
+          <motion.aside
+            key={selected.id}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            className="frosted-card grid gap-5 rounded-[30px] p-5 lg:grid-cols-[minmax(0,1.4fr)_repeat(5,minmax(110px,1fr))_auto] lg:items-center"
+          >
+            <div className="min-w-0">
+              <span
+                className="mb-3 inline-block rounded-full px-3 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-white"
+                style={{ backgroundColor: selected.channelColor }}
               >
-                <div className="mb-6">
-                  <span 
-                    className="inline-block px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest text-white mb-2"
-                    style={{ backgroundColor: selected.channelColor }}
-                  >
-                    {selected.channel}
-                  </span>
-                  <h2 className="text-xl font-black leading-tight text-text-strong">{selected.name}</h2>
-                  <p className="mt-2 text-sm font-bold text-text-muted">{formatDateRange(selected.startDate, selected.endDate)}</p>
-                </div>
-
-                <div className="space-y-4 flex-1">
-                  <DetailRow label="Location" value={selected.location} />
-                  <DetailRow label="Status" value={getStatusLabel(selected.participationStatus)} />
-                  <DetailRow label="Sales Target" value={selected.salesTarget?.toLocaleString() || "-"} />
-                  <DetailRow label="Actual Sales" value={selected.actualSales?.toLocaleString() || "-"} />
-                </div>
-
-                <Link 
-                  href={`/events/${selected.id}`}
-                  className="mt-8 flex w-full items-center justify-center py-3 bg-primary text-white rounded-xl text-sm font-black hover:scale-[1.02] active:scale-[0.98] transition"
-                >
-                  Edit Details
-                </Link>
-              </motion.div>
-            ) : (
-              <div className="flex items-center justify-center h-full text-text-muted text-sm font-bold">
-                Select an event to see details
-              </div>
-            )}
-          </AnimatePresence>
-        </div>
-      </aside>
+                {selected.channel}
+              </span>
+              <h2 className="truncate text-lg font-medium leading-tight text-foreground">{selected.name}</h2>
+              <p className="mt-2 text-sm text-muted">{formatDateRange(selected.startDate, selected.endDate)}</p>
+            </div>
+            <DetailRow label="Location" value={selected.location} />
+            <DetailRow label="Duration" value={formatEventDuration(selected.startDate, selected.endDate)} />
+            <DetailRow label="Status" value={getStatusLabel(selected.participationStatus)} />
+            <DetailRow label="Target" value={selected.salesTarget?.toLocaleString() || "-"} />
+            <DetailRow label="Actual" value={selected.actualSales?.toLocaleString() || "-"} />
+            <Link
+              href={`/events/${selected.id}`}
+              className="neutral-button flex min-h-11 items-center justify-center px-5 text-sm font-medium"
+            >
+              Details
+            </Link>
+          </motion.aside>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }
@@ -96,8 +87,8 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">{label}</p>
-      <p className="text-sm font-bold text-text-strong">{value}</p>
+      <p className="mb-1 text-[10px] font-medium uppercase tracking-[0.14em] text-muted">{label}</p>
+      <p className="text-sm font-medium text-foreground">{value}</p>
     </div>
   );
 }

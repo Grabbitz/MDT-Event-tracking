@@ -2,6 +2,7 @@
 
 import { Download } from "lucide-react";
 import writeXlsxFile from "write-excel-file/browser";
+import { getEventDurationDays } from "@/lib/event-format";
 import type { EventRecord } from "@/lib/types";
 
 function rows(events: EventRecord[]) {
@@ -10,6 +11,7 @@ function rows(events: EventRecord[]) {
     "ช่องทาง": event.channel,
     "วันเริ่มงาน": event.startDate,
     "วันรื้อถอน": event.endDate,
+    "จำนวนวัน": getEventDurationDays(event.startDate, event.endDate),
     "สถานที่": event.location,
     "สถานะ": event.participationStatus,
     "พนักงานขาย": event.salesStaffRequired ? "ต้องการ PC" : "ไม่ต้องการ PC",
@@ -57,7 +59,7 @@ export function ExportButton({ events }: { events: EventRecord[] }) {
       <button
         type="button"
         onClick={exportXlsx}
-        className="flex min-h-10 items-center gap-2 rounded-md bg-accent px-4 text-sm font-black text-white transition hover:bg-accent-strong"
+        className="neutral-button flex min-h-10 items-center gap-2 px-4 text-sm font-medium"
       >
         <Download aria-hidden className="h-4 w-4" />
         XLSX
@@ -65,7 +67,7 @@ export function ExportButton({ events }: { events: EventRecord[] }) {
       <button
         type="button"
         onClick={exportCsv}
-        className="border-line flex min-h-10 items-center gap-2 rounded-md border bg-panel px-4 text-sm font-black transition hover:bg-panel-soft"
+        className="ghost-button flex min-h-10 items-center gap-2 px-4 text-sm font-medium"
       >
         <Download aria-hidden className="h-4 w-4" />
         CSV

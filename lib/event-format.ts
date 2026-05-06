@@ -37,9 +37,9 @@ export function getStatusLabel(status: ParticipationStatus) {
 }
 
 export function getStatusClass(status: ParticipationStatus) {
-  if (status === "joining") return "bg-[oklch(0.93_0.05_151)] text-[oklch(0.34_0.09_151)]";
-  if (status === "not_joining") return "bg-[oklch(0.93_0.05_28)] text-[oklch(0.36_0.12_28)]";
-  return "bg-[oklch(0.93_0.04_75)] text-[oklch(0.38_0.08_65)]";
+  if (status === "joining") return "bg-black text-white";
+  if (status === "not_joining") return "bg-panel-soft text-muted";
+  return "bg-[rgba(255,176,5,0.18)] text-foreground";
 }
 
 function parseDateOnly(value: string) {

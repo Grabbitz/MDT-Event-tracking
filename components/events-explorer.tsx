@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { CalendarPlus, Search } from "lucide-react";
 import { ExportButton } from "@/components/export-button";
-import { formatDateRange, getStatusClass, getStatusLabel } from "@/lib/event-format";
+import { formatDateRange, formatEventDuration, getStatusClass, getStatusLabel } from "@/lib/event-format";
 import type { EventRecord, ParticipationStatus } from "@/lib/types";
 
 export function EventsExplorer({ events }: { events: EventRecord[] }) {
@@ -34,14 +34,14 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
 
   return (
     <div className="space-y-5">
-      <section className="border-line rounded-2xl border bg-panel p-4 shadow-[var(--shadow-soft)] sm:p-5">
+      <section className="frosted-card rounded-[30px] p-4 sm:p-5">
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-[minmax(220px,1fr)_160px_160px_140px_auto]">
           <label className="relative">
             <Search aria-hidden className="text-muted pointer-events-none absolute left-3 top-3 h-4 w-4" />
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              className="border-line h-11 w-full rounded-md border bg-white px-9 text-sm outline-none focus:border-accent"
+              className="h-11 w-full rounded-full border border-line bg-white/85 px-9 text-sm outline-none transition focus:border-black"
               placeholder="ค้นหาชื่องาน สถานที่ ช่องทาง"
               aria-label="ค้นหาอีเวนท์"
             />
@@ -49,7 +49,7 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
           <select
             value={channel}
             onChange={(event) => setChannel(event.target.value)}
-            className="border-line h-11 rounded-md border bg-white px-3 text-sm font-semibold outline-none focus:border-accent"
+            className="h-11 rounded-full border border-line bg-white/85 px-4 text-sm font-medium outline-none transition focus:border-black"
             aria-label="กรองตามช่องทาง"
           >
             <option value="all">ทุกช่องทาง</option>
@@ -62,7 +62,7 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
           <select
             value={status}
             onChange={(event) => setStatus(event.target.value as ParticipationStatus | "all")}
-            className="border-line h-11 rounded-md border bg-white px-3 text-sm font-semibold outline-none focus:border-accent"
+            className="h-11 rounded-full border border-line bg-white/85 px-4 text-sm font-medium outline-none transition focus:border-black"
             aria-label="กรองตามสถานะ"
           >
             <option value="all">ทุกสถานะ</option>
@@ -73,7 +73,7 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
           <select
             value={year}
             onChange={(event) => setYear(event.target.value)}
-            className="border-line h-11 rounded-md border bg-white px-3 text-sm font-semibold outline-none focus:border-accent"
+            className="h-11 rounded-full border border-line bg-white/85 px-4 text-sm font-medium outline-none transition focus:border-black"
             aria-label="กรองตามปี"
           >
             <option value="all">ทุกปี</option>
@@ -87,55 +87,84 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
         </div>
       </section>
 
-      <section className="border-line overflow-hidden rounded-2xl border bg-panel shadow-[var(--shadow-soft)]">
-        <div className="border-line flex flex-wrap items-center justify-between gap-3 border-b px-4 py-3">
-          <p className="text-sm font-bold">
+      <section className="frosted-card overflow-hidden rounded-[30px]">
+        <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
+          <p className="text-sm font-medium">
             พบ {filteredEvents.length.toLocaleString("th-TH")} รายการ
           </p>
           <Link
             href="/events/new"
-            className="flex min-h-10 items-center gap-2 rounded-md bg-accent px-3 text-sm font-black text-white transition-colors duration-200 hover:bg-accent-strong"
+            className="neutral-button flex min-h-10 items-center gap-2 px-4 text-sm font-medium"
           >
             <CalendarPlus aria-hidden className="h-4 w-4" />
             เพิ่มอีเวนท์
           </Link>
         </div>
 
-        <div className="overflow-x-auto overscroll-x-contain">
+        <div className="divide-y divide-line/70 md:hidden">
+          {filteredEvents.map((event) => (
+            <Link
+              href={`/events/${event.id}`}
+              key={event.id}
+              className="block px-5 py-4 transition-colors hover:bg-panel-soft"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <span className="inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-normal text-muted">
+                  <span className="h-2 w-2 rounded-full" style={{ background: event.channelColor }} />
+                  {event.channel}
+                </span>
+                <span className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-medium ${getStatusClass(event.participationStatus)}`}>
+                  {getStatusLabel(event.participationStatus)}
+                </span>
+              </div>
+              <h3 className="mt-2 text-sm font-medium leading-snug text-foreground">{event.name}</h3>
+              <p className="mt-2 text-xs leading-5 text-muted">{event.location}</p>
+              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted">
+                <span>{formatDateRange(event.startDate, event.endDate)}</span>
+                <span>{formatEventDuration(event.startDate, event.endDate)}</span>
+                <span>{event.salesStaffRequired ? "ต้องการ PC" : "ไม่ต้องการ PC"}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="hidden overflow-x-auto overscroll-x-contain md:block">
           <table className="w-full min-w-[920px] border-collapse text-sm">
             <thead className="bg-panel-soft text-left">
               <tr className="text-muted">
-                <th className="px-4 py-3 font-black">งาน</th>
-                <th className="px-4 py-3 font-black">ช่องทาง</th>
-                <th className="px-4 py-3 font-black">ช่วงวัน</th>
-                <th className="px-4 py-3 font-black">สถานที่</th>
-                <th className="px-4 py-3 font-black">สถานะ</th>
-                <th className="px-4 py-3 font-black">PC</th>
+                <th className="px-5 py-3 font-medium">งาน</th>
+                <th className="px-5 py-3 font-medium">ช่องทาง</th>
+                <th className="px-5 py-3 font-medium">ช่วงวัน</th>
+                <th className="px-5 py-3 font-medium">จำนวนวัน</th>
+                <th className="px-5 py-3 font-medium">สถานที่</th>
+                <th className="px-5 py-3 font-medium">สถานะ</th>
+                <th className="px-5 py-3 font-medium">PC</th>
               </tr>
             </thead>
             <tbody>
               {filteredEvents.map((event) => (
                 <tr key={event.id} className="border-line border-t align-top transition-colors duration-150 hover:bg-panel-soft/70">
-                  <td className="px-4 py-3">
-                    <Link href={`/events/${event.id}`} className="font-black transition-colors duration-150 hover:text-accent-strong">
+                  <td className="px-5 py-4">
+                    <Link href={`/events/${event.id}`} className="font-medium transition-colors duration-150 hover:text-muted">
                       {event.name}
                     </Link>
                     {event.boothSize ? <p className="text-muted mt-1 text-xs">{event.boothSize}</p> : null}
                   </td>
-                  <td className="px-4 py-3">
-                    <span className="inline-flex items-center gap-2 font-bold">
+                  <td className="px-5 py-4">
+                    <span className="inline-flex items-center gap-2 font-medium">
                       <span className="h-2.5 w-2.5 rounded-full" style={{ background: event.channelColor }} />
                       {event.channel}
                     </span>
                   </td>
-                  <td className="px-4 py-3 whitespace-nowrap">{formatDateRange(event.startDate, event.endDate)}</td>
-                  <td className="px-4 py-3">{event.location}</td>
-                  <td className="px-4 py-3">
-                    <span className={`inline-flex rounded-md px-2 py-1 text-xs font-black ${getStatusClass(event.participationStatus)}`}>
+                  <td className="whitespace-nowrap px-5 py-4 text-muted">{formatDateRange(event.startDate, event.endDate)}</td>
+                  <td className="whitespace-nowrap px-5 py-4 text-muted">{formatEventDuration(event.startDate, event.endDate)}</td>
+                  <td className="px-5 py-4 text-muted">{event.location}</td>
+                  <td className="px-5 py-4">
+                    <span className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${getStatusClass(event.participationStatus)}`}>
                       {getStatusLabel(event.participationStatus)}
                     </span>
                   </td>
-                  <td className="px-4 py-3">{event.salesStaffRequired ? "ต้องการ PC" : "-"}</td>
+                  <td className="px-5 py-4 text-muted">{event.salesStaffRequired ? "ต้องการ PC" : "-"}</td>
                 </tr>
               ))}
             </tbody>

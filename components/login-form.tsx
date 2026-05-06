@@ -41,34 +41,34 @@ export function LoginForm() {
   }
 
   return (
-    <div className="border-line bg-panel grid gap-4 rounded-lg border p-5">
-      <label className="grid gap-2 text-sm font-bold">
+    <div className="frosted-card grid gap-4 rounded-[30px] p-5">
+      <label className="grid gap-2 text-sm font-medium">
         Email
         <input
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           type="email"
-          className="border-line h-11 rounded-md border bg-white px-3 outline-none focus:border-accent"
+          className="h-11 rounded-full border border-line bg-white/85 px-4 outline-none transition focus:border-black"
           placeholder="name@company.com"
         />
       </label>
-      <label className="grid gap-2 text-sm font-bold">
+      <label className="grid gap-2 text-sm font-medium">
         Password
         <input
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           type="password"
-          className="border-line h-11 rounded-md border bg-white px-3 outline-none focus:border-accent"
+          className="h-11 rounded-full border border-line bg-white/85 px-4 outline-none transition focus:border-black"
           placeholder="ใช้ถ้าเปิด email/password"
         />
       </label>
-      {message ? <p className="rounded-md bg-panel-soft px-3 py-2 text-sm font-bold text-muted">{message}</p> : null}
+      {message ? <p className="rounded-2xl bg-panel-soft px-4 py-3 text-sm font-medium text-muted">{message}</p> : null}
       <div className="flex flex-wrap gap-2">
         <button
           type="button"
           onClick={loginWithPassword}
           disabled={busy || !email || !password}
-          className="flex min-h-11 items-center gap-2 rounded-md bg-accent px-4 font-black text-white transition hover:bg-accent-strong disabled:cursor-not-allowed disabled:opacity-50"
+          className="neutral-button flex min-h-11 items-center gap-2 px-4 font-medium disabled:cursor-not-allowed disabled:opacity-50"
         >
           <LogIn aria-hidden className="h-4 w-4" />
           Login
@@ -77,7 +77,7 @@ export function LoginForm() {
           type="button"
           onClick={sendMagicLink}
           disabled={busy || !email}
-          className="border-line min-h-11 rounded-md border bg-panel px-4 font-black transition hover:bg-panel-soft disabled:cursor-not-allowed disabled:opacity-50"
+          className="ghost-button min-h-11 px-4 font-medium disabled:cursor-not-allowed disabled:opacity-50"
         >
           ส่ง Magic Link
         </button>

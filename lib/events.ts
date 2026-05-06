@@ -1,7 +1,7 @@
 import legacyEvents from "@/lib/legacy-events.json";
 import { isSupabaseConfigured } from "@/lib/env";
 import { unstable_rethrow } from "next/navigation";
-export { formatDate, formatDateRange, getStatusClass, getStatusLabel } from "@/lib/event-format";
+export { formatDate, formatDateRange, formatEventDuration, getStatusClass, getStatusLabel } from "@/lib/event-format";
 import { getGoogleSheetEvents, isGoogleSheetConfigured } from "@/lib/google-sheet-events";
 import { createOptionalClient } from "@/lib/supabase/server";
 import type { ChannelSummary, EventRecord, ParticipationStatus } from "@/lib/types";

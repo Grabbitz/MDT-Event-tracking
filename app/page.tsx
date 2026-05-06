@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { CalendarCheck, CircleDollarSign, Store, Users } from "lucide-react";
 import { StatCard } from "@/components/stat-card";
-import { formatDateRange } from "@/lib/events";
+import { formatDateRange, formatEventDuration } from "@/lib/events";
 import { getDashboardStats } from "@/lib/events";
 
 export const revalidate = 0;
@@ -13,50 +13,30 @@ export default async function DashboardPage() {
   const todayEvents = stats.activeToday;
 
   return (
-    <div className="mx-auto max-w-6xl space-y-8 py-1">
+    <div className="space-y-8">
 
-      {/* Page header */}
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-xs font-medium text-muted">Modern Trade</p>
-          <h1 className="mt-1 text-2xl font-semibold tracking-tight text-foreground">Event tracking</h1>
+      <div className="relative overflow-hidden rounded-[40px] px-1 py-2">
+        <div className="spectrum-strip absolute left-8 right-8 top-0 h-1.5 rounded-full opacity-90" />
+        <div className="spectrum-strip pointer-events-none absolute inset-x-6 top-0 h-28 opacity-20 blur-3xl" />
+        <div className="relative grid gap-6 pt-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+          <div>
+            <p className="text-sm font-normal text-muted">Modern Trade workspace</p>
+            <h1 className="display-title mt-3 max-w-4xl text-5xl text-foreground sm:text-6xl lg:text-7xl">
+              Event tracking
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-muted">
+              Dashboard สำหรับดูอีเวนท์ ช่องทาง และจังหวะงานที่กำลังเกิดขึ้นแบบอ่านง่ายในหน้าเดียว
+            </p>
+          </div>
+          <Link
+            href="/events/new"
+            className="neutral-button flex min-h-11 w-fit items-center justify-center px-5 text-sm font-medium"
+          >
+            + เพิ่มอีเวนท์
+          </Link>
         </div>
-        <Link
-          href="/events/new"
-          className="flex min-h-8 items-center justify-center rounded-md bg-accent px-4 text-sm font-medium text-white transition-colors hover:bg-accent-strong"
-        >
-          + เพิ่มอีเวนท์
-        </Link>
       </div>
 
-      {/* Today Section */}
-      {todayEvents.length > 0 && (
-        <section className="space-y-3">
-          <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-400" />
-            <h2 className="text-sm font-semibold text-foreground">กำลังจัดวันนี้ ({todayEvents.length})</h2>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {todayEvents.map(event => (
-              <Link
-                key={event.id}
-                href={`/events/${event.id}`}
-                className="group border-line bg-panel rounded-lg border p-4 transition-colors hover:bg-panel-soft"
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="h-2 w-2 rounded-full shrink-0" style={{ background: event.channelColor }} />
-                  <span className="text-[10px] font-semibold uppercase tracking-wider text-muted">{event.channel}</span>
-                </div>
-                <h3 className="text-sm font-semibold leading-snug text-foreground group-hover:text-accent">{event.name}</h3>
-                <p className="text-muted mt-1 text-xs">{event.location}</p>
-                <p className="text-[10px] text-muted mt-3">{formatDateRange(event.startDate, event.endDate)}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Stats */}
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard label="อีเวนท์ทั้งหมด" value={stats.events.length.toLocaleString("th-TH")} detail="รวมข้อมูลปี 2025 และ 2026" icon={CalendarCheck} />
         <StatCard label="กำลังจัดวันนี้" value={todayEvents.length.toLocaleString("th-TH")} detail="เทียบกับวันปัจจุบัน" icon={Store} />
@@ -64,76 +44,103 @@ export default async function DashboardPage() {
         <StatCard label="ยอดขายเทียบ target" value={`${targetProgress}%`} detail="พร้อมรองรับ actual sales" icon={CircleDollarSign} />
       </section>
 
-      {stats.events.length === 0 ? (
-        <div className="border-line flex flex-col items-center justify-center rounded-lg border border-dashed bg-panel p-16 text-center">
-          <div className="bg-accent-soft grid h-14 w-14 place-items-center rounded-full mb-4">
-            <CalendarCheck className="h-7 w-7 text-accent" />
+      {todayEvents.length > 0 && (
+        <section className="space-y-3">
+          <div className="flex items-center gap-2">
+            <span className="spectrum-strip h-2 w-8 rounded-full" />
+            <h2 className="text-sm font-medium text-foreground">กำลังจัดวันนี้ ({todayEvents.length})</h2>
           </div>
-          <h2 className="text-base font-semibold text-foreground">ยังไม่มีข้อมูลอีเวนท์</h2>
-          <p className="text-muted mt-2 max-w-sm text-sm leading-relaxed">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {todayEvents.map(event => (
+              <Link
+                key={event.id}
+                href={`/events/${event.id}`}
+                className="frosted-card group rounded-[30px] p-5 transition-transform duration-200 hover:-translate-y-0.5"
+              >
+                <div className="mb-3 flex items-center gap-2">
+                  <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: event.channelColor }} />
+                  <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted">{event.channel}</span>
+                </div>
+                <h3 className="text-base font-medium leading-snug text-foreground">{event.name}</h3>
+                <p className="mt-2 text-sm text-muted">{event.location}</p>
+                <p className="mt-5 text-xs text-muted">
+                  {formatDateRange(event.startDate, event.endDate)} · {formatEventDuration(event.startDate, event.endDate)}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {stats.events.length === 0 ? (
+        <div className="frosted-card flex flex-col items-center justify-center rounded-[30px] p-16 text-center">
+          <div className="spectrum-strip mb-5 grid h-14 w-14 place-items-center rounded-full">
+            <CalendarCheck className="h-7 w-7 text-white" />
+          </div>
+          <h2 className="text-xl font-medium text-foreground">ยังไม่มีข้อมูลอีเวนท์</h2>
+          <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted">
             เริ่มสร้างอีเวนท์แรกของคุณเพื่อดูปฏิทินและสถิติต่างๆ ได้ทันที
           </p>
           <Link
             href="/events/new"
-            className="mt-6 flex h-9 items-center justify-center rounded-md bg-accent px-6 text-sm font-medium text-white transition-colors hover:bg-accent-strong"
+            className="neutral-button mt-6 flex h-11 items-center justify-center px-6 text-sm font-medium"
           >
             เพิ่มอีเวนท์แรก
           </Link>
         </div>
       ) : (
-        <section className="grid gap-6 lg:grid-cols-[1fr_320px]">
+        <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
 
-          {/* Upcoming events */}
-          <div className="border-line overflow-hidden rounded-lg border bg-panel">
-            <div className="border-line flex items-center justify-between gap-4 border-b px-5 py-4">
+          <div className="frosted-card overflow-hidden rounded-[30px]">
+            <div className="flex items-center justify-between gap-4 px-6 py-5">
               <div>
-                <h2 className="text-sm font-semibold text-foreground">Upcoming events</h2>
-                <p className="text-muted text-xs mt-0.5">5 รายการถัดไปจากข้อมูลทั้งหมด</p>
+                <h2 className="text-base font-medium text-foreground">Upcoming events</h2>
+                <p className="mt-1 text-xs text-muted">5 รายการถัดไปจากข้อมูลทั้งหมด</p>
               </div>
-              <Link href="/calendar" className="text-xs font-medium text-accent hover:text-accent-strong transition-colors">
-                เปิดปฏิทิน →
+              <Link href="/calendar" className="ghost-button px-4 py-2 text-xs font-medium">
+                เปิดปฏิทิน
               </Link>
             </div>
-            <div className="divide-line divide-y">
+            <div className="divide-y divide-line/70">
               {stats.upcoming.map((event) => (
                 <Link
                   href={`/events/${event.id}`}
                   key={event.id}
-                  className="grid gap-3 px-5 py-4 transition-colors hover:bg-panel-soft sm:grid-cols-[1fr_auto]"
+                  className="grid gap-3 px-6 py-4 transition-colors hover:bg-panel-soft sm:grid-cols-[1fr_auto]"
                 >
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: event.channelColor }} />
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-muted">{event.channel}</span>
+                      <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted">{event.channel}</span>
                     </div>
-                    <p className="mt-1 text-sm font-semibold text-foreground">{event.name}</p>
-                    <p className="text-muted mt-0.5 text-xs">{event.location}</p>
+                    <p className="mt-1.5 text-sm font-medium text-foreground">{event.name}</p>
+                    <p className="mt-1 text-xs text-muted">{event.location}</p>
                   </div>
-                  <div className="text-xs text-muted sm:text-right self-center">
-                    {formatDateRange(event.startDate, event.endDate)}
+                  <div className="self-center text-xs text-muted sm:text-right">
+                    <p>{formatDateRange(event.startDate, event.endDate)}</p>
+                    <p className="mt-1">{formatEventDuration(event.startDate, event.endDate)}</p>
                   </div>
                 </Link>
               ))}
             </div>
           </div>
 
-          {/* Channel mix */}
-          <div className="border-line rounded-lg border bg-panel p-5">
-            <h2 className="text-sm font-semibold text-foreground">Channel mix</h2>
-            <p className="text-muted text-xs mt-0.5 mb-5">สัดส่วนตามช่องทางจำหน่าย</p>
-            <div className="space-y-4">
+          <div className="frosted-card rounded-[30px] p-6">
+            <h2 className="text-base font-medium text-foreground">Channel mix</h2>
+            <p className="mb-6 mt-1 text-xs text-muted">สัดส่วนตามช่องทางจำหน่าย</p>
+            <div className="space-y-5">
               {stats.channels.map((channel) => (
                 <div key={channel.name}>
                   <div className="flex items-center justify-between gap-3 text-xs">
                     <span className="flex items-center gap-2 font-medium text-foreground">
-                      <span className="h-2 w-2 rounded-full shrink-0" style={{ background: channel.color }} />
+                      <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: channel.color }} />
                       {channel.name}
                     </span>
                     <span className="text-muted tabular-nums">{channel.eventCount}</span>
                   </div>
-                  <div className="bg-panel-soft mt-1.5 h-1 rounded-full overflow-hidden">
+                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-panel-soft">
                     <div
-                      className="h-full rounded-full bg-accent transition-all duration-500"
+                      className="spectrum-strip h-full rounded-full transition-all duration-500"
                       style={{ width: `${Math.max(6, (channel.eventCount / stats.events.length) * 100)}%` }}
                     />
                   </div>

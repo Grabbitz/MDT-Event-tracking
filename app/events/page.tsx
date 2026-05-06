@@ -7,13 +7,14 @@ export default async function EventsPage() {
   const events = await getEvents();
 
   return (
-    <div className="mx-auto max-w-7xl space-y-8 py-3 sm:space-y-10 sm:py-4">
-      <header className="space-y-4 rounded-3xl border border-line bg-panel px-5 py-6 shadow-[var(--shadow-soft)] sm:px-7 sm:py-7">
-        <p className="inline-flex items-center rounded-full bg-accent-soft px-3 py-1 text-xs font-bold uppercase tracking-wide text-accent-strong">
+    <div className="space-y-8">
+      <header className="relative overflow-hidden rounded-[40px] px-1 pb-2 pt-8">
+        <div className="spectrum-strip absolute left-0 top-0 h-1.5 w-56 rounded-full" />
+        <p className="text-sm font-normal text-muted">
           Workspace / Events
         </p>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-5xl">รายการอีเวนท์ทั้งหมด</h1>
-        <p className="text-muted max-w-2xl text-base leading-relaxed sm:text-lg">
+        <h1 className="display-title mt-3 max-w-4xl text-5xl text-foreground sm:text-6xl">รายการอีเวนท์ทั้งหมด</h1>
+        <p className="mt-5 max-w-2xl text-base leading-7 text-muted">
           ค้นหา กรองตามช่องทาง/สถานะ/ปี และ export เฉพาะรายการที่กรองอยู่ได้ทันที
         </p>
       </header>
