@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Noto_Sans_Thai } from "next/font/google";
 import { AppShell } from "@/components/app-shell";
 import "./globals.css";
-import { createOptionalClient } from "@/lib/supabase/server";
-import { isGoogleSheetConfigured } from "@/lib/google-sheet-events";
 
 const notoSansThai = Noto_Sans_Thai({
   subsets: ["thai", "latin"],
@@ -21,15 +19,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = await createOptionalClient();
-  const {
-    data: { user },
-  } = supabase ? await supabase.auth.getUser() : { data: { user: null } };
-
   return (
     <html lang="th" className={notoSansThai.variable}>
       <body className="font-sans antialiased">
-        <AppShell userEmail={user?.email ?? null} sourceLabel={isGoogleSheetConfigured() ? "Google Sheet" : "Local JSON"}>
+        <AppShell>
           {children}
         </AppShell>
       </body>
