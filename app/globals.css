@@ -2,12 +2,24 @@
 
 @theme {
   --color-primary: #FF6B00;
+  --color-accent: var(--color-primary);
+  --color-accent-strong: oklch(0.45 0.15 35);
+  --color-accent-soft: oklch(0.96 0.02 65);
+  
   --color-background: oklch(0.98 0.01 65);
   --color-surface: oklch(1 0 0);
-  --color-line: oklch(0.92 0.01 65);
-  --color-text-strong: oklch(0.25 0.02 65);
-  --color-text-muted: oklch(0.55 0.02 65);
+  --color-panel: var(--color-surface);
+  --color-panel-soft: oklch(0.96 0.01 65);
   
+  --color-line: oklch(0.92 0.01 65);
+  
+  --color-text-strong: oklch(0.25 0.02 65);
+  --color-foreground: var(--color-text-strong);
+  
+  --color-text-muted: oklch(0.55 0.02 65);
+  --color-muted: var(--color-text-muted);
+  
+  --radius-2xl: 16px;
   --radius-xl: 12px;
   --radius-lg: 8px;
   --radius-md: 6px;

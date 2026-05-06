@@ -1,0 +1,47 @@
+<h2>เลือกโครงสร้างหน้า Dashboard</h2>
+<p class="subtitle">เราควรจัดวางข้อมูลที่สำคัญอย่างไรดี เพื่อให้สมดุลระหว่าง "สถิติ" และ "ตารางงาน"?</p>
+
+<div class="cards">
+  <div class="card" data-choice="calendar-centric" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #f8f9fa; display: flex; flex-direction: column; gap: 8px; padding: 16px;">
+      <div style="height: 20%; background: #eee; border-radius: 4px;"></div>
+      <div style="display: flex; gap: 8px; flex: 1;">
+         <div style="flex: 3; background: #fff; border: 1px solid #ddd; border-radius: 4px;"></div>
+         <div style="flex: 1; background: #eee; border-radius: 4px;"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Calendar Centric</h3>
+      <p>เน้นปฏิทินเป็นหลัก (เหมือนปัจจุบัน) แต่ปรับสัดส่วนให้โปร่งขึ้น เพิ่มแถบข้างสำหรับดูสรุปข้อมูลรายอีเวนท์</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="bento-grid" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #f8f9fa; display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 2fr; gap: 8px; padding: 16px;">
+      <div style="background: #eee; border-radius: 4px;"></div>
+      <div style="background: #eee; border-radius: 4px;"></div>
+      <div style="background: #eee; border-radius: 4px;"></div>
+      <div style="grid-column: span 2; background: #fff; border: 1px solid #ddd; border-radius: 4px;"></div>
+      <div style="background: #eee; border-radius: 4px;"></div>
+    </div>
+    <div class="card-body">
+      <h3>Bento Grid Layout</h3>
+      <p>จัดวางแบบโมดูลาร์ แยกส่วน Stats, Recent Events, และ Calendar เป็นบล็อกๆ ดูทันสมัยและเป็นสัดส่วน</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="data-first" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #f8f9fa; display: flex; flex-direction: column; gap: 8px; padding: 16px;">
+      <div style="display: flex; gap: 8px; height: 30%;">
+         <div style="flex: 1; background: #eee; border-radius: 4px;"></div>
+         <div style="flex: 1; background: #eee; border-radius: 4px;"></div>
+         <div style="flex: 1; background: #eee; border-radius: 4px;"></div>
+      </div>
+      <div style="flex: 1; background: #fff; border: 1px solid #ddd; border-radius: 4px;"></div>
+    </div>
+    <div class="card-body">
+      <h3>Data-First Analytics</h3>
+      <p>เน้นกราฟและตัวเลขสรุป (Target vs Actual) ไว้ด้านบนสุดอย่างชัดเจน แล้วค่อยตามด้วยรายการอีเวนท์</p>
+    </div>
+  </div>
+</div>
