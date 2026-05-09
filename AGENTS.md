@@ -13,12 +13,23 @@ Build and maintain a production-oriented Modern Trade event tracking web app wit
   - `state.md` for project state memory
 - Dependencies: FullCalendar, Supabase, Framer Motion, Lucide React, Excel tooling.
 
-## Project Memory
-- Read `state.md` at the start of repo work when it exists.
-- Treat `state.md` as lightweight project memory for current status, recent decisions, known issues, and next steps.
-- Update `state.md` after meaningful implementation, verification, deploy, data-source, or workflow changes.
-- Keep entries concise, dated, factual, and easy to scan.
-- Do not store secrets, credentials, private URLs with tokens, or environment variable values in `state.md`.
+## Project Memory (`state.md`)
+
+`state.md` uses a two-section format:
+- **⚡ NOW** — current status snapshot (branch, commit, deploy, blocker, next task)
+- **📜 LOG** — chronological archive of completed work
+
+### Workflow for AI agents
+
+**Before starting any task:**
+1. Read the **⚡ NOW** section of `state.md` to get current status, blockers, and next steps.
+2. Read **📜 LOG** only when the user asks about history or past decisions.
+
+**After completing a task:**
+1. Move the old ⚡ NOW content to the top of 📜 LOG (dated `YYYY-MM-DD`).
+2. Write a new ⚡ NOW reflecting the current state (branch, latest commit hash, deploy status, any blocker, and next task).
+3. Keep LOG entries concise: bullet points with ✅ for done, ⚠️ for issues, and `Files:` listing changed paths.
+4. Do not store secrets, credentials, private URLs with tokens, or environment variable values in `state.md`.
 
 ## Requirements
 - Preserve working data-source priority: Supabase, then Google Sheet, then local fallback.
