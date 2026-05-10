@@ -14,7 +14,7 @@ export default async function CalendarPage() {
           <p className="text-sm font-normal text-muted">
             Modern Trade / Calendar
           </p>
-          <h1 className="display-title text-5xl text-foreground sm:text-6xl">Event calendar</h1>
+          <h1 className="display-title text-4xl text-foreground sm:text-6xl">Event calendar</h1>
           <p className="max-w-2xl text-sm leading-7 text-muted md:text-base">
             ดูอีเวนท์ตามเดือนแบบเรียบ อ่านง่าย และเลือกดูรายละเอียดได้ทันที
           </p>

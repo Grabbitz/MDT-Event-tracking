@@ -86,7 +86,7 @@ export function EventForm({ supabaseReady }: { supabaseReady: boolean }) {
       <button
         type="submit"
         disabled={!supabaseReady || pending}
-        className="neutral-button flex min-h-11 w-fit items-center gap-2 px-5 font-medium disabled:cursor-not-allowed disabled:opacity-50"
+        className="neutral-button flex min-h-11 w-full items-center justify-center gap-2 px-5 font-medium disabled:cursor-not-allowed disabled:opacity-50 sm:w-fit"
       >
         <Save aria-hidden className="h-4 w-4" />
         {pending ? "กำลังบันทึก..." : "บันทึกอีเวนท์"}

@@ -34,7 +34,7 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
 
   return (
     <div className="space-y-5">
-      <section className="frosted-card rounded-[30px] p-4 sm:p-5">
+      <section className="frosted-card rounded-[26px] p-4 sm:rounded-[30px] sm:p-5">
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-[minmax(220px,1fr)_160px_160px_140px_auto]">
           <label className="relative">
             <Search aria-hidden className="text-muted pointer-events-none absolute left-3 top-3 h-4 w-4" />
@@ -88,13 +88,13 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
       </section>
 
       <section className="frosted-card overflow-hidden rounded-[30px]">
-        <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-5">
           <p className="text-sm font-medium">
             พบ {filteredEvents.length.toLocaleString("th-TH")} รายการ
           </p>
           <Link
             href="/events/new"
-            className="neutral-button flex min-h-10 items-center gap-2 px-4 text-sm font-medium"
+            className="neutral-button flex min-h-11 w-full items-center justify-center gap-2 px-4 text-sm font-medium sm:min-h-10 sm:w-fit"
           >
             <CalendarPlus aria-hidden className="h-4 w-4" />
             เพิ่มอีเวนท์
@@ -106,7 +106,7 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
             <Link
               href={`/events/${event.id}`}
               key={event.id}
-              className="block px-5 py-4 transition-colors hover:bg-panel-soft"
+              className="block px-4 py-4 transition-colors hover:bg-panel-soft sm:px-5"
             >
               <div className="flex items-center justify-between gap-3">
                 <span className="inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-normal text-muted">

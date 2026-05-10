@@ -15,16 +15,16 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
       <header className="grid gap-5 rounded-[40px] px-1 pt-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
         <div>
           <p className="text-sm font-normal text-muted">{event.channel}</p>
-          <h1 className="display-title mt-3 max-w-4xl text-5xl text-foreground sm:text-6xl">{event.name}</h1>
+          <h1 className="display-title mt-3 max-w-4xl text-4xl text-foreground sm:text-6xl">{event.name}</h1>
           <p className="mt-4 text-muted">{formatDateRange(event.startDate, event.endDate)}</p>
         </div>
-        <Link href="/events" className="ghost-button flex min-h-10 w-fit items-center px-4 text-sm font-medium">
+        <Link href="/events" className="ghost-button flex min-h-11 w-full items-center justify-center px-4 text-sm font-medium sm:w-fit">
           กลับไปรายการ
         </Link>
       </header>
 
       <section className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_360px]">
-        <article className="frosted-card rounded-[30px] p-6">
+        <article className="frosted-card rounded-[26px] p-5 sm:rounded-[30px] sm:p-6">
           <h2 className="text-xl font-medium">รายละเอียดงาน</h2>
           <dl className="mt-5 grid gap-4 sm:grid-cols-2">
             <Info label="สถานที่" value={event.location} />
@@ -42,7 +42,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
         </article>
 
         <aside className="space-y-5">
-          <section className="frosted-card rounded-[30px] p-6">
+          <section className="frosted-card rounded-[26px] p-5 sm:rounded-[30px] sm:p-6">
             <h2 className="text-xl font-medium">Sales</h2>
             <dl className="mt-4 space-y-3">
               <Info label="Target" value={event.salesTarget != null ? event.salesTarget.toLocaleString("th-TH") : "-"} />
@@ -50,7 +50,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
             </dl>
           </section>
 
-          <section className="frosted-card rounded-[30px] p-6">
+          <section className="frosted-card rounded-[26px] p-5 sm:rounded-[30px] sm:p-6">
             <h2 className="text-xl font-medium">ไฟล์แนบ</h2>
             {event.fileName ? (
               <p className="mt-4 flex items-center gap-2 rounded-2xl bg-panel-soft p-3 text-sm font-medium">

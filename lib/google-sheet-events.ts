@@ -165,11 +165,7 @@ function normalizeLooseThaiDate(value: string) {
   if (!match) return undefined;
   const day = match[1].padStart(2, "0");
   const month = match[2].padStart(2, "0");
-  let year = Number(match[3]);
-  
-  // Handle short years (25 -> 2025) and Thai years (2568 -> 2025)
-  if (year < 100) year += 2000;
-  if (year > 2500) year -= 543;
+  const year = normalizeYear(Number(match[3]));
   
   const hour = (match[4] ?? "00").padStart(2, "0");
   const minute = (match[5] ?? "00").padStart(2, "0");
@@ -197,14 +193,7 @@ function toDateString(value: string | undefined) {
   if (thaiDate) {
     const day = thaiDate[1].padStart(2, "0");
     const month = thaiDate[2].padStart(2, "0");
-    let year = Number(thaiDate[3]);
-    
-    // Logic: 
-    // If 25 or 26 -> 2025/2026
-    // If 2568 or 2569 -> 2025/2026
-    // If 2025 or 2026 -> 2025/2026
-    if (year < 100) year += 2000;
-    if (year > 2500) year -= 543;
+    const year = normalizeYear(Number(thaiDate[3]));
     
     return `${year}-${month}-${day}`;
   }
@@ -225,6 +214,15 @@ function toDateString(value: string | undefined) {
 function toNumber(value: string | undefined) {
   const parsed = Number(clean(value).replace(/,/g, ""));
   return Number.isFinite(parsed) && clean(value) ? parsed : undefined;
+}
+
+function normalizeYear(year: number) {
+  if (year < 100) {
+    // Sheet entries use both Gregorian short years (25, 26) and Thai Buddhist short years (68, 69).
+    return year >= 60 ? year + 1957 : year + 2000;
+  }
+
+  return year > 2500 ? year - 543 : year;
 }
 
 function clean(value: unknown) {

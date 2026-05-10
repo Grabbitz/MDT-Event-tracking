@@ -55,11 +55,11 @@ export function ExportButton({ events }: { events: EventRecord[] }) {
   }
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
       <button
         type="button"
         onClick={exportXlsx}
-        className="neutral-button flex min-h-10 items-center gap-2 px-4 text-sm font-medium"
+        className="neutral-button flex min-h-11 items-center justify-center gap-2 px-4 text-sm font-medium sm:min-h-10"
       >
         <Download aria-hidden className="h-4 w-4" />
         XLSX
@@ -67,7 +67,7 @@ export function ExportButton({ events }: { events: EventRecord[] }) {
       <button
         type="button"
         onClick={exportCsv}
-        className="ghost-button flex min-h-10 items-center gap-2 px-4 text-sm font-medium"
+        className="ghost-button flex min-h-11 items-center justify-center gap-2 px-4 text-sm font-medium sm:min-h-10"
       >
         <Download aria-hidden className="h-4 w-4" />
         CSV

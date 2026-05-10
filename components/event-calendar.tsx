@@ -1,26 +1,42 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import listPlugin from "@fullcalendar/list";
 import thLocale from "@fullcalendar/core/locales/th";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { EventChip } from "./event-chip";
-import { formatDateRange, formatEventDuration, getStatusLabel } from "@/lib/event-format";
+import { addDaysToDateOnly, formatDateRange, formatEventDuration, getStatusLabel } from "@/lib/event-format";
 import type { EventRecord } from "@/lib/types";
+
+const thaiGregorianLocale = {
+  ...thLocale,
+  code: "th-u-ca-gregory",
+};
 
 export function EventCalendar({ events }: { events: EventRecord[] }) {
   const [selectedId, setSelectedId] = useState<string | null>(events[0]?.id || null);
+  const [isCompact, setIsCompact] = useState(false);
   const selected = events.find((e) => e.id === selectedId);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 720px)");
+    const update = () => setIsCompact(media.matches);
+
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   const calendarEvents = useMemo(() => 
     events.map(e => ({
       id: e.id,
       title: e.name,
       start: e.startDate,
-      end: addOneDay(e.endDate), 
+      end: addDaysToDateOnly(e.endDate, 1),
       extendedProps: { record: e }
     }))
   , [events]);
@@ -29,21 +45,30 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
     <div className="space-y-5">
       <section className="frosted-card calendar-surface rounded-[30px] p-3 sm:p-5">
         <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin]}
-          initialView="dayGridMonth"
-          locales={[thLocale]}
-          locale="th"
+          plugins={[dayGridPlugin, interactionPlugin, listPlugin]}
+          initialView={isCompact ? "listMonth" : "dayGridMonth"}
+          key={isCompact ? "compact-calendar" : "full-calendar"}
+          locales={[thaiGregorianLocale]}
+          locale="th-u-ca-gregory"
           height="auto"
           events={calendarEvents}
-          dayMaxEvents={3}
+          dayMaxEvents={isCompact ? 1 : 3}
           moreLinkClick="popover"
           eventContent={(info) => <EventChip event={info.event} />}
           eventClick={(info) => setSelectedId(info.event.id)}
-          headerToolbar={{
-            start: "prev,next today",
-            center: "title",
-            end: "dayGridMonth,dayGridWeek"
-          }}
+          headerToolbar={
+            isCompact
+              ? {
+                  start: "prev,next",
+                  center: "title",
+                  end: "today",
+                }
+              : {
+                  start: "prev,next today",
+                  center: "title",
+                  end: "dayGridMonth,dayGridWeek",
+                }
+          }
         />
       </section>
 
@@ -54,7 +79,7 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="frosted-card grid gap-5 rounded-[30px] p-5 lg:grid-cols-[minmax(0,1.4fr)_repeat(5,minmax(110px,1fr))_auto] lg:items-center"
+            className="frosted-card grid gap-4 rounded-[26px] p-4 sm:gap-5 sm:rounded-[30px] sm:p-5 lg:grid-cols-[minmax(0,1.4fr)_repeat(5,minmax(110px,1fr))_auto] lg:items-center"
           >
             <div className="min-w-0">
               <span
@@ -63,7 +88,7 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
               >
                 {selected.channel}
               </span>
-              <h2 className="truncate text-lg font-medium leading-tight text-foreground">{selected.name}</h2>
+              <h2 className="text-base font-medium leading-tight text-foreground sm:truncate sm:text-lg">{selected.name}</h2>
               <p className="mt-2 text-sm text-muted">{formatDateRange(selected.startDate, selected.endDate)}</p>
             </div>
             <DetailRow label="Location" value={selected.location} />
@@ -91,10 +116,4 @@ function DetailRow({ label, value }: { label: string; value: string }) {
       <p className="text-sm font-medium text-foreground">{value}</p>
     </div>
   );
-}
-
-function addOneDay(date: string) {
-  const value = new Date(`${date}T00:00:00`);
-  value.setDate(value.getDate() + 1);
-  return value.toISOString().slice(0, 10);
 }

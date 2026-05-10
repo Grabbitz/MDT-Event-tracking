@@ -9,7 +9,7 @@ export default async function ChannelsPage() {
     <div className="space-y-6">
       <header className="rounded-[40px] px-1 pt-8">
         <p className="text-sm font-normal text-muted">Settings</p>
-        <h1 className="display-title mt-3 text-5xl text-foreground sm:text-6xl">ช่องทาง</h1>
+        <h1 className="display-title mt-3 text-4xl text-foreground sm:text-6xl">ช่องทาง</h1>
         <p className="mt-5 max-w-2xl leading-7 text-muted">
           Lookup table สำหรับสีใน calendar และการ filter รายการอีเวนท์
         </p>

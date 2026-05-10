@@ -9,11 +9,12 @@ const statusLabels: Record<ParticipationStatus, string> = {
 };
 
 export function formatDate(value: string) {
-  return new Intl.DateTimeFormat("th-TH", {
+  return new Intl.DateTimeFormat("th-TH-u-ca-gregory", {
     day: "2-digit",
     month: "short",
     year: "numeric",
-  }).format(new Date(`${value}T00:00:00`));
+    timeZone: "UTC",
+  }).format(parseDateOnly(value));
 }
 
 export function formatDateRange(startDate: string, endDate: string) {
@@ -45,4 +46,10 @@ export function getStatusClass(status: ParticipationStatus) {
 function parseDateOnly(value: string) {
   const [year, month, day] = value.split("-").map(Number);
   return new Date(Date.UTC(year, month - 1, day));
+}
+
+export function addDaysToDateOnly(value: string, days: number) {
+  const date = parseDateOnly(value);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
 }

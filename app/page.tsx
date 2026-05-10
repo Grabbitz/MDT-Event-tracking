@@ -21,7 +21,7 @@ export default async function DashboardPage() {
         <div className="relative grid gap-6 pt-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
           <div>
             <p className="text-sm font-normal text-muted">Modern Trade workspace</p>
-            <h1 className="display-title mt-3 max-w-4xl text-5xl text-foreground sm:text-6xl lg:text-7xl">
+            <h1 className="display-title mt-3 max-w-4xl text-4xl text-foreground sm:text-6xl lg:text-7xl">
               Event tracking
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-muted">
@@ -30,7 +30,7 @@ export default async function DashboardPage() {
           </div>
           <Link
             href="/events/new"
-            className="neutral-button flex min-h-11 w-fit items-center justify-center px-5 text-sm font-medium"
+            className="neutral-button flex min-h-11 w-full items-center justify-center px-5 text-sm font-medium sm:w-fit"
           >
             + เพิ่มอีเวนท์
           </Link>
@@ -125,7 +125,7 @@ export default async function DashboardPage() {
             </div>
           </div>
 
-          <div className="frosted-card rounded-[30px] p-6">
+          <div className="frosted-card rounded-[26px] p-5 sm:rounded-[30px] sm:p-6">
             <h2 className="text-base font-medium text-foreground">Channel mix</h2>
             <p className="mb-6 mt-1 text-xs text-muted">สัดส่วนตามช่องทางจำหน่าย</p>
             <div className="space-y-5">

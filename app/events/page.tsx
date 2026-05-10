@@ -13,7 +13,7 @@ export default async function EventsPage() {
         <p className="text-sm font-normal text-muted">
           Workspace / Events
         </p>
-        <h1 className="display-title mt-3 max-w-4xl text-5xl text-foreground sm:text-6xl">รายการอีเวนท์ทั้งหมด</h1>
+        <h1 className="display-title mt-3 max-w-4xl text-4xl text-foreground sm:text-6xl">รายการอีเวนท์ทั้งหมด</h1>
         <p className="mt-5 max-w-2xl text-base leading-7 text-muted">
           ค้นหา กรองตามช่องทาง/สถานะ/ปี และ export เฉพาะรายการที่กรองอยู่ได้ทันที
         </p>

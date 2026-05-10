@@ -319,9 +319,15 @@ button {
 }
 
 @media (max-width: 720px) {
+  body::before {
+    inset: -18% -30% auto -30%;
+    height: 42vh;
+  }
+
   .fc .fc-toolbar {
     align-items: stretch;
     flex-direction: column;
+    gap: 10px;
   }
 
   .fc .fc-toolbar-chunk {
@@ -330,12 +336,17 @@ button {
   }
 
   .fc .fc-toolbar-title {
-    font-size: 24px;
+    font-size: 20px;
     text-align: center;
   }
 
+  .fc .fc-button {
+    min-height: 44px;
+    padding-inline: 16px;
+  }
+
   .fc .fc-daygrid-day-frame {
-    min-height: 102px;
+    min-height: 76px;
     padding-inline: 2px;
   }
 
@@ -348,5 +359,33 @@ button {
 
   .calendar-event-chip p:last-child {
     display: none;
+  }
+
+  .fc .fc-list {
+    border: 0;
+  }
+
+  .fc .fc-list-table {
+    border-collapse: separate;
+    border-spacing: 0 8px;
+  }
+
+  .fc .fc-list-day-cushion {
+    background: transparent !important;
+    padding: 10px 4px 2px !important;
+  }
+
+  .fc .fc-list-event {
+    border-radius: 18px;
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .fc .fc-list-event td {
+    border: 0;
+    padding: 12px 10px;
+  }
+
+  .fc .fc-list-event:hover td {
+    background: transparent;
   }
 }
