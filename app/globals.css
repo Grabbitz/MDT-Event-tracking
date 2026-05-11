@@ -1,37 +1,37 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #000000;
+  --color-primary: #171717;
   --color-accent: var(--color-primary);
   --color-accent-strong: #000000;
-  --color-accent-soft: rgba(0, 0, 0, 0.045);
-  
-  --color-background: #f8f8f8;
-  --color-surface: rgba(255, 255, 255, 0.9);
+  --color-accent-soft: rgba(0, 0, 0, 0.04);
+
+  --color-background: #ffffff;
+  --color-surface: #ffffff;
   --color-panel: var(--color-surface);
   --color-panel-soft: rgba(0, 0, 0, 0.04);
-  
-  --color-line: rgba(0, 0, 0, 0.1);
-  
-  --color-text-strong: #000000;
+
+  --color-line: rgba(0, 0, 0, 0.08);
+
+  --color-text-strong: #171717;
   --color-foreground: var(--color-text-strong);
-  
-  --color-text-muted: #636363;
+
+  --color-text-muted: #4d4d4d;
   --color-muted: var(--color-text-muted);
-  
-  --radius-2xl: 30px;
-  --radius-xl: 24px;
-  --radius-lg: 16px;
-  --radius-md: 12px;
+
+  --radius-2xl: 12px;
+  --radius-xl: 10px;
+  --radius-lg: 8px;
+  --radius-md: 6px;
 }
 
 :root {
   --background: var(--color-background);
   --foreground: var(--color-text-strong);
-  --button-fill: #d9d9d9;
-  --fog: #efefef;
-  --slate: #959595;
-  --steel: #aeaeae;
+  --button-fill: #171717;
+  --fog: #f4f4f4;
+  --slate: #666666;
+  --steel: #808080;
   --spectrum: linear-gradient(
     90deg,
     rgb(198, 121, 196) 0%,
@@ -40,8 +40,9 @@
     rgb(225, 225, 254) 75%,
     rgb(3, 88, 247) 100%
   );
-  --shadow-soft: rgba(0, 0, 0, 0.08) 0 0 8px 0;
-  --card-blur: blur(24px);
+  --shadow-border: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  --shadow-card: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px,
+    rgba(0, 0, 0, 0.04) 0px 8px 8px -8px, inset #fafafa 0px 0px 0px 1px;
 }
 
 body {
@@ -51,35 +52,8 @@ body {
   font-weight: 400;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: -24% -10% auto -10%;
-  z-index: -2;
-  height: 52vh;
-  background:
-    radial-gradient(circle at 12% 40%, rgba(198, 121, 196, 0.18), transparent 24%),
-    radial-gradient(circle at 48% 20%, rgba(255, 176, 5, 0.18), transparent 28%),
-    radial-gradient(circle at 86% 38%, rgba(3, 88, 247, 0.16), transparent 26%);
-  filter: blur(38px);
-  pointer-events: none;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), transparent 58%);
-  pointer-events: none;
-}
-
 ::selection {
-  background: rgba(255, 176, 5, 0.28);
+  background: rgba(0, 114, 245, 0.15);
 }
 
 input,
@@ -90,10 +64,8 @@ button {
 }
 
 .frosted-card {
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: var(--card-blur);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
 }
 
 .spectrum-strip {
@@ -101,49 +73,49 @@ button {
 }
 
 .neutral-button {
-  border-radius: 9999px;
-  background: var(--button-fill);
-  color: rgba(0, 0, 0, 0.85);
-  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+  border-radius: 6px;
+  background: #171717;
+  color: #ffffff;
+  transition: background-color 150ms ease, opacity 150ms ease;
 }
 
 .neutral-button:hover {
   background: #000000;
-  color: #ffffff;
 }
 
 .ghost-button {
-  border-radius: 9999px;
-  background: rgba(0, 0, 0, 0.04);
-  color: rgba(0, 0, 0, 0.85);
-  transition: background-color 180ms ease, transform 180ms ease;
+  border-radius: 6px;
+  background: transparent;
+  color: #171717;
+  box-shadow: rgb(235, 235, 235) 0px 0px 0px 1px;
+  transition: background-color 150ms ease;
 }
 
 .ghost-button:hover {
-  background: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .display-title {
-  font-weight: 300;
-  letter-spacing: 0;
-  line-height: 1.12;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
 }
 
 .fc {
   --fc-border-color: rgba(0, 0, 0, 0.08);
-  --fc-today-bg-color: rgba(255, 176, 5, 0.12);
-  --fc-button-bg-color: #d9d9d9;
+  --fc-today-bg-color: rgba(0, 114, 245, 0.05);
+  --fc-button-bg-color: #ffffff;
   --fc-button-border-color: transparent;
-  --fc-button-text-color: rgba(0, 0, 0, 0.85);
-  --fc-button-hover-bg-color: #000000;
-  --fc-button-hover-border-color: #000000;
-  --fc-button-active-bg-color: #000000;
-  --fc-button-active-border-color: #000000;
-  color: #000000;
+  --fc-button-text-color: #171717;
+  --fc-button-hover-bg-color: #171717;
+  --fc-button-hover-border-color: #171717;
+  --fc-button-active-bg-color: #171717;
+  --fc-button-active-border-color: #171717;
+  color: #171717;
 }
 
 .calendar-surface {
-  background: rgba(255, 255, 255, 0.94);
+  background: #ffffff;
 }
 
 .fc .fc-toolbar {
@@ -153,34 +125,36 @@ button {
 }
 
 .fc .fc-toolbar-title {
-  font-size: 28px;
-  font-weight: 400;
-  letter-spacing: 0;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .fc .fc-button {
   border-radius: 9999px;
-  box-shadow: none !important;
+  box-shadow: rgb(235, 235, 235) 0px 0px 0px 1px !important;
   font-size: 13px;
   font-weight: 500;
-  min-height: 38px;
-  padding: 8px 14px;
+  min-height: 36px;
+  padding: 6px 14px;
   text-transform: none;
 }
 
 .fc .fc-button-primary:disabled {
-  background: #efefef;
-  color: #636363;
+  background: #f4f4f4;
+  color: #666666;
   opacity: 1;
+  box-shadow: rgb(235, 235, 235) 0px 0px 0px 1px !important;
 }
 
 .fc .fc-button-primary:not(:disabled):hover,
 .fc .fc-button-primary:not(:disabled):focus,
 .fc .fc-button-primary:not(:disabled):active,
 .fc .fc-button-primary:not(:disabled).fc-button-active {
-  background: #000000;
-  border-color: #000000;
+  background: #171717;
+  border-color: #171717;
   color: #ffffff;
+  box-shadow: none !important;
 }
 
 .fc .fc-button-group {
@@ -192,13 +166,14 @@ button {
 }
 
 .fc .fc-view-harness {
-  border-radius: 22px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
 .fc .fc-scrollgrid {
-  border: 1px solid rgba(0, 0, 0, 0.08) !important;
-  border-radius: 22px;
+  border: 0 !important;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   overflow: hidden;
 }
 
@@ -208,14 +183,14 @@ button {
 }
 
 .fc .fc-col-header-cell {
-  background: #ffffff;
+  background: #fafafa;
 }
 
 .fc .fc-col-header-cell-cushion,
 .fc .fc-daygrid-day-number {
-  color: #636363;
+  color: #4d4d4d;
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 500;
   text-decoration: none;
 }
 
@@ -243,18 +218,35 @@ button {
   margin: 3px 6px 0 0;
   place-items: center;
   border-radius: 9999px;
-  background: rgba(0, 0, 0, 0.08);
-  color: #000000;
+  background: #171717;
+  color: #ffffff;
 }
 
 .fc .fc-daygrid-event-harness {
-  margin-top: 2px !important;
+  margin-top: 1px !important;
 }
 
-.fc .fc-daygrid-event,
-.fc .fc-h-event {
-  border: 0 !important;
+/* list-item dot events */
+.fc .fc-daygrid-event.fc-daygrid-dot-event {
   background: transparent !important;
+  border: 0 !important;
+  padding: 1px 4px;
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+
+.fc .fc-daygrid-event.fc-daygrid-dot-event:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+.fc .fc-daygrid-event-dot {
+  --fc-daygrid-event-dot-width: 7px;
+  margin: 0 2px;
+}
+
+.fc .fc-event-time,
+.fc .fc-event-title {
+  display: none !important;
 }
 
 .fc .fc-event-main {
@@ -262,21 +254,21 @@ button {
 }
 
 .fc .fc-event {
-  border-radius: 10px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
 .calendar-event-chip {
   display: grid;
-  min-height: 28px;
-  grid-template-columns: 7px minmax(0, 1fr);
+  min-height: 26px;
+  grid-template-columns: 6px minmax(0, 1fr);
   align-items: center;
   gap: 7px;
   overflow: hidden;
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.045);
-  padding: 4px 8px 4px 6px;
-  transition: background-color 160ms ease, transform 160ms ease;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 3px 8px 3px 6px;
+  transition: background-color 120ms ease;
 }
 
 .calendar-event-chip:hover {
@@ -286,13 +278,13 @@ button {
 .calendar-event-dot {
   display: block;
   width: 4px;
-  height: 18px;
+  height: 16px;
   border-radius: 9999px;
 }
 
 .fc .fc-daygrid-more-link {
   border-radius: 9999px;
-  color: #636363;
+  color: #4d4d4d;
   display: inline-flex;
   font-size: 11px;
   font-weight: 500;
@@ -305,25 +297,20 @@ button {
 }
 
 .fc .fc-more-popover {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 18px;
-  box-shadow: var(--shadow-soft);
+  border: 0;
+  border-radius: 12px;
+  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 
 .fc .fc-popover-header {
-  background: #efefef;
-  color: #000000;
+  background: #fafafa;
+  color: #171717;
   font-size: 12px;
   font-weight: 500;
 }
 
 @media (max-width: 720px) {
-  body::before {
-    inset: -18% -30% auto -30%;
-    height: 42vh;
-  }
-
   .fc .fc-toolbar {
     align-items: stretch;
     flex-direction: column;
@@ -336,7 +323,7 @@ button {
   }
 
   .fc .fc-toolbar-title {
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
   }
 
@@ -351,10 +338,10 @@ button {
   }
 
   .calendar-event-chip {
-    min-height: 24px;
-    grid-template-columns: 5px minmax(0, 1fr);
+    min-height: 22px;
+    grid-template-columns: 4px minmax(0, 1fr);
     gap: 5px;
-    padding: 3px 5px;
+    padding: 2px 5px;
   }
 
   .calendar-event-chip p:last-child {
@@ -376,8 +363,8 @@ button {
   }
 
   .fc .fc-list-event {
-    border-radius: 18px;
-    background: rgba(0, 0, 0, 0.04);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.03);
   }
 
   .fc .fc-list-event td {

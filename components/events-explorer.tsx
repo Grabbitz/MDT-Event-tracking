@@ -34,14 +34,14 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
 
   return (
     <div className="space-y-5">
-      <section className="frosted-card rounded-[26px] p-4 sm:rounded-[30px] sm:p-5">
+      <section className="frosted-card rounded-xl p-4 sm:p-5">
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-[minmax(220px,1fr)_160px_160px_140px_auto]">
           <label className="relative">
             <Search aria-hidden className="text-muted pointer-events-none absolute left-3 top-3 h-4 w-4" />
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              className="h-11 w-full rounded-full border border-line bg-white/85 px-9 text-sm outline-none transition focus:border-black"
+              className="h-11 w-full rounded-md bg-white px-9 text-sm outline-none shadow-[rgba(0,0,0,0.08)_0px_0px_0px_1px] transition focus:shadow-[0px_0px_0px_2px_hsla(212,100%,48%,0.4)]"
               placeholder="ค้นหาชื่องาน สถานที่ ช่องทาง"
               aria-label="ค้นหาอีเวนท์"
             />
@@ -49,7 +49,7 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
           <select
             value={channel}
             onChange={(event) => setChannel(event.target.value)}
-            className="h-11 rounded-full border border-line bg-white/85 px-4 text-sm font-medium outline-none transition focus:border-black"
+            className="h-11 rounded-md bg-white px-4 text-sm font-medium outline-none shadow-[rgba(0,0,0,0.08)_0px_0px_0px_1px] transition focus:shadow-[0px_0px_0px_2px_hsla(212,100%,48%,0.4)]"
             aria-label="กรองตามช่องทาง"
           >
             <option value="all">ทุกช่องทาง</option>
@@ -62,7 +62,7 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
           <select
             value={status}
             onChange={(event) => setStatus(event.target.value as ParticipationStatus | "all")}
-            className="h-11 rounded-full border border-line bg-white/85 px-4 text-sm font-medium outline-none transition focus:border-black"
+            className="h-11 rounded-md bg-white px-4 text-sm font-medium outline-none shadow-[rgba(0,0,0,0.08)_0px_0px_0px_1px] transition focus:shadow-[0px_0px_0px_2px_hsla(212,100%,48%,0.4)]"
             aria-label="กรองตามสถานะ"
           >
             <option value="all">ทุกสถานะ</option>
@@ -73,7 +73,7 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
           <select
             value={year}
             onChange={(event) => setYear(event.target.value)}
-            className="h-11 rounded-full border border-line bg-white/85 px-4 text-sm font-medium outline-none transition focus:border-black"
+            className="h-11 rounded-md bg-white px-4 text-sm font-medium outline-none shadow-[rgba(0,0,0,0.08)_0px_0px_0px_1px] transition focus:shadow-[0px_0px_0px_2px_hsla(212,100%,48%,0.4)]"
             aria-label="กรองตามปี"
           >
             <option value="all">ทุกปี</option>
@@ -87,7 +87,7 @@ export function EventsExplorer({ events }: { events: EventRecord[] }) {
         </div>
       </section>
 
-      <section className="frosted-card overflow-hidden rounded-[30px]">
+      <section className="frosted-card overflow-hidden rounded-xl">
         <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-5">
           <p className="text-sm font-medium">
             พบ {filteredEvents.length.toLocaleString("th-TH")} รายการ

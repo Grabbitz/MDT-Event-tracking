@@ -9,19 +9,20 @@ export default async function CalendarPage() {
 
   return (
     <div className="space-y-7">
-      <header className="grid gap-5 rounded-[40px] px-1 pt-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-        <div className="space-y-3">
-          <p className="text-sm font-normal text-muted">
-            Modern Trade / Calendar
-          </p>
-          <h1 className="display-title text-4xl text-foreground sm:text-6xl">Event calendar</h1>
-          <p className="max-w-2xl text-sm leading-7 text-muted md:text-base">
-            ดูอีเวนท์ตามเดือนแบบเรียบ อ่านง่าย และเลือกดูรายละเอียดได้ทันที
+      <header className="border-b border-line pb-10 pt-4">
+        <div className="spectrum-strip mb-6 h-px w-full" />
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-widest text-muted">Modern Trade / Calendar</p>
+            <h1 className="display-title mt-4 text-4xl text-foreground sm:text-5xl">Event calendar</h1>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-muted">
+              ดูอีเวนท์ตามเดือนแบบเรียบ อ่านง่าย และเลือกดูรายละเอียดได้ทันที
+            </p>
+          </div>
+          <p className="ghost-button hidden shrink-0 px-4 py-2 text-xs font-medium text-muted sm:block">
+            {events.length.toLocaleString("th-TH")} events
           </p>
         </div>
-        <p className="ghost-button w-fit px-4 py-2 text-xs font-medium text-muted">
-          {events.length.toLocaleString("th-TH")} events
-        </p>
       </header>
       <EventCalendar events={events} />
     </div>

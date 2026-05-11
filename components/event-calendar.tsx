@@ -31,19 +31,21 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
     return () => media.removeEventListener("change", update);
   }, []);
 
-  const calendarEvents = useMemo(() => 
+  const calendarEvents = useMemo(() =>
     events.map(e => ({
       id: e.id,
       title: e.name,
       start: e.startDate,
       end: addDaysToDateOnly(e.endDate, 1),
-      extendedProps: { record: e }
+      backgroundColor: e.channelColor || "#808080",
+      borderColor: e.channelColor || "#808080",
+      extendedProps: { record: e },
     }))
   , [events]);
 
   return (
     <div className="space-y-5">
-      <section className="frosted-card calendar-surface rounded-[30px] p-3 sm:p-5">
+      <section className="frosted-card calendar-surface rounded-xl p-3 sm:p-5">
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin, listPlugin]}
           initialView={isCompact ? "listMonth" : "dayGridMonth"}
@@ -52,9 +54,10 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
           locale="th-u-ca-gregory"
           height="auto"
           events={calendarEvents}
-          dayMaxEvents={isCompact ? 1 : 3}
+          eventDisplay={isCompact ? undefined : "list-item"}
+          dayMaxEvents={isCompact ? 1 : 5}
           moreLinkClick="popover"
-          eventContent={(info) => <EventChip event={info.event} />}
+          eventContent={isCompact ? ((info) => <EventChip event={info.event} />) : undefined}
           eventClick={(info) => setSelectedId(info.event.id)}
           headerToolbar={
             isCompact
@@ -79,7 +82,7 @@ export function EventCalendar({ events }: { events: EventRecord[] }) {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="frosted-card grid gap-4 rounded-[26px] p-4 sm:gap-5 sm:rounded-[30px] sm:p-5 lg:grid-cols-[minmax(0,1.4fr)_repeat(5,minmax(110px,1fr))_auto] lg:items-center"
+            className="frosted-card grid gap-4 rounded-xl p-4 sm:gap-5 sm:p-5 lg:grid-cols-[minmax(0,1.4fr)_repeat(5,minmax(110px,1fr))_auto] lg:items-center"
           >
             <div className="min-w-0">
               <span
