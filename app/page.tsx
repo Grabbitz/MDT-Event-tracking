@@ -95,7 +95,7 @@ export default async function DashboardPage() {
             <div className="flex items-center justify-between gap-4 px-6 py-5">
               <div>
                 <h2 className="text-base font-medium text-foreground">Upcoming events</h2>
-                <p className="mt-1 text-xs text-muted">5 รายการถัดไปจากข้อมูลทั้งหมด</p>
+                <p className="mt-1 text-xs text-muted">5 งานถัดไปที่ยังไม่เริ่ม</p>
               </div>
               <Link href="/calendar" className="ghost-button px-4 py-2 text-xs font-medium">
                 เปิดปฏิทิน

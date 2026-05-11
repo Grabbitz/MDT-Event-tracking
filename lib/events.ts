@@ -134,7 +134,7 @@ export async function getDashboardStats() {
   const month = today.slice(0, 7);
   const activeToday = events.filter((event) => event.startDate <= today && event.endDate >= today);
   const thisMonth = events.filter((event) => event.startDate.startsWith(month) || event.endDate.startsWith(month));
-  const upcoming = events.filter((event) => event.endDate >= today).slice(0, 5);
+  const upcoming = selectUpcomingEvents(events, today);
   const totalTarget = events.reduce((sum, event) => sum + (event.salesTarget ?? 0), 0);
   const totalActual = events.reduce((sum, event) => sum + (event.actualSales ?? 0), 0);
 
@@ -148,6 +148,13 @@ export async function getDashboardStats() {
     joining: events.filter((event) => event.participationStatus === "joining").length,
     channels,
   };
+}
+
+export function selectUpcomingEvents(events: EventRecord[], today: string, limit = 5) {
+  return events
+    .filter((event) => event.startDate >= today)
+    .sort((a, b) => a.startDate.localeCompare(b.startDate))
+    .slice(0, limit);
 }
 
 async function getChannelRows(): Promise<ChannelRow[]> {

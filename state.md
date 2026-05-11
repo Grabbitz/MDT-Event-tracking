@@ -8,16 +8,23 @@
 ## ⚡ NOW
 
 - **Status**: Idle — no active task
-- **Branch**: main | **Commit**: `0a0294b` — _docs: add project state memory_
+- **Branch**: main | **Commit**: current — _fix: refine upcoming event selection_
 - **Deploy**: ✅ Ready — _Vercel production_
 - **Blocker**: None
-- **Next**: อัปเดต state.md ให้ใช้ format ⚡ NOW / 📜 LOG และอัปเดต AGENTS.md ให้ครบ ✅ Done
+- **Next**: Commit upcoming events logic update ✅ Done
 
 ---
 
 ## 📜 LOG
 
 > ย้าย NOW เก่ามาใส่ที่นี่ทุกครั้งที่อัปเดต — ไม่ต้องลบ
+
+### 🗓️ 2026-05-11
+- ✅ Updated dashboard Upcoming events to show only events that have not started yet
+- ✅ Added `selectUpcomingEvents()` with start-date sorting and limit support
+- ✅ Added tests for excluding already-started events, sorting, and limit behavior
+- ✅ Verified with `npm test` and `npm run lint`
+- Files: `app/page.tsx`, `lib/events.ts`, `lib/events.test.ts`
 
 ### 🗓️ 2026-05-09
 - ✅ ปรับ state.md ให้ใช้ format ⚡ NOW / 📜 LOG
