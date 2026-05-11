@@ -7,17 +7,29 @@
 
 ## ⚡ NOW
 
-- **Status**: Calendar release ready — timeline-style event bars, floating day panel, and density control verified
-- **Branch**: main | **Commit**: pending — _feat(ui): refine calendar timeline layout_
-- **Deploy**: ✅ Ready — _release checks passed; Vercel production deploy next_
+- **Status**: Calendar release shipped — timeline event bars, floating day panel, and density control deployed
+- **Branch**: main | **Commit**: 1d02c0b — _feat(ui): refine calendar timeline layout_
+- **Deploy**: ✅ Production — _Vercel READY; `https://mdt-event-tracking.vercel.app/calendar` returns HTTP 200_
 - **Blocker**: None
-- **Next**: Commit, push, and deploy to Vercel production
+- **Next**: Monitor production calendar UI
 
 ---
 
 ## 📜 LOG
 
 > ย้าย NOW เก่ามาใส่ที่นี่ทุกครั้งที่อัปเดต — ไม่ต้องลบ
+
+### 🗓️ 2026-05-11
+- ✅ Previous NOW: Calendar release ready — timeline-style event bars, floating day panel, and density control verified
+- ✅ Branch: main | Commit: pending — _feat(ui): refine calendar timeline layout_
+- ✅ Deploy: Ready — _release checks passed; Vercel production deploy next_
+- ✅ Next: Commit, push, and deploy to Vercel production
+
+### 🗓️ 2026-05-11
+- ✅ Committed and pushed `1d02c0b` to `origin/main`
+- ✅ Deployed Vercel production deployment `dpl_2XYa9ezws9jSmtZfS4LbELHm7C7W`
+- ✅ Verified alias `https://mdt-event-tracking.vercel.app` and `/calendar` with HTTP 200
+- ✅ Verified Vercel inspect status: Ready
 
 ### 🗓️ 2026-05-11
 - ✅ Previous NOW: Calendar UI refined — event bars are thin timeline strokes and app header no longer covers the calendar
