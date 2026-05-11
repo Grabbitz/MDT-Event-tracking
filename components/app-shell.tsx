@@ -16,7 +16,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background px-3 py-3 pb-24 sm:px-6 sm:py-4 sm:pb-4 lg:px-8">
-      <header className="frosted-card sticky top-3 z-40 mx-auto flex max-w-7xl items-center gap-3 rounded-xl px-3 py-2.5 sm:top-4">
+      <header className="frosted-card relative z-40 mx-auto flex max-w-7xl items-center gap-3 rounded-xl px-3 py-2.5">
         <Link href="/" className="flex min-w-0 items-center gap-2.5 px-1 sm:px-2">
           <span className="spectrum-strip h-6 w-6 shrink-0 rounded-md" />
           <span className="text-sm font-semibold tracking-tight text-foreground">MT Event</span>

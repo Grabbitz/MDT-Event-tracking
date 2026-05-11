@@ -7,17 +7,91 @@
 
 ## ⚡ NOW
 
-- **Status**: Idle — no active task
-- **Branch**: main | **Commit**: current — _fix: refine upcoming event selection_
-- **Deploy**: ✅ Ready — _Vercel production_
+- **Status**: Calendar release ready — timeline-style event bars, floating day panel, and density control verified
+- **Branch**: main | **Commit**: pending — _feat(ui): refine calendar timeline layout_
+- **Deploy**: ✅ Ready — _release checks passed; Vercel production deploy next_
 - **Blocker**: None
-- **Next**: Commit upcoming events logic update ✅ Done
+- **Next**: Commit, push, and deploy to Vercel production
 
 ---
 
 ## 📜 LOG
 
 > ย้าย NOW เก่ามาใส่ที่นี่ทุกครั้งที่อัปเดต — ไม่ต้องลบ
+
+### 🗓️ 2026-05-11
+- ✅ Previous NOW: Calendar UI refined — event bars are thin timeline strokes and app header no longer covers the calendar
+- ✅ Branch: main | Commit: `240e2c2` — _feat(ui): apply Vercel design system via DESIGN.md_
+- ✅ Deploy: Ready — _local build verified; not deployed in this task_
+- ✅ Next: Review and commit calendar floating panel update
+
+### 🗓️ 2026-05-11
+- ✅ Calendar release verification passed with `git diff --check`, `npm run lint`, `npm test`, and `npm run build`
+- ✅ Confirmed month-grid event names are hidden from bars to prevent overlap while details remain available in floating panels
+- ✅ Confirmed calendar density control supports Compact / Comfort / Cozy spacing
+- Files: `components/event-calendar.tsx`, `components/app-shell.tsx`, `app/globals.css`, `state.md`
+
+### 🗓️ 2026-05-11
+- ✅ Reduced month-grid event bars from heavy blocks to thin timeline strokes
+- ✅ Removed sticky behavior from the app header so it does not cover calendar controls while scrolling
+- ✅ Verified with `npm run lint`, `npm run build`, browser reload, and `HEAD /calendar 200`
+- Files: `components/app-shell.tsx`, `app/globals.css`, `state.md`
+
+### 🗓️ 2026-05-11
+- ✅ Previous NOW: Calendar UI updated — month grid bars no longer render names, preventing overlap
+- ✅ Branch: main | Commit: `240e2c2` — _feat(ui): apply Vercel design system via DESIGN.md_
+- ✅ Deploy: Ready — _local build verified; not deployed in this task_
+- ✅ Next: Review and commit calendar floating panel update
+
+### 🗓️ 2026-05-11
+- ✅ Removed event names from month-grid multi-day bars to prevent overlap completely
+- ✅ Kept event names available through hover title and floating day/event panels
+- ✅ Verified with `npm run lint`, `npm run build`, and `HEAD /calendar 200`
+- ✅ Restarted dev server after clearing `.next` to avoid stale chunk errors
+- Files: `components/event-calendar.tsx`, `app/globals.css`, `state.md`
+
+### 🗓️ 2026-05-11
+- ✅ Previous NOW: Calendar UI updated — event labels no longer overlap and density toggle is available
+- ✅ Branch: main | Commit: `240e2c2` — _feat(ui): apply Vercel design system via DESIGN.md_
+- ✅ Deploy: Ready — _local build verified; not deployed in this task_
+- ✅ Next: Review and commit calendar floating panel update
+
+### 🗓️ 2026-05-11
+- ✅ Reworked calendar event rendering so multi-day bars use clipped custom labels instead of overlapping default text
+- ✅ Added `Compact / Comfort / Cozy` spacing controls for calendar density
+- ✅ Verified with `npm run lint`, `npm run build`, and local browser check at `http://localhost:3002/calendar`
+- Files: `components/event-calendar.tsx`, `app/globals.css`, `state.md`
+
+### 🗓️ 2026-05-11
+- ✅ Previous NOW: Calendar UI updated — floating panels close on outside click
+- ✅ Branch: main | Commit: `240e2c2` — _feat(ui): apply Vercel design system via DESIGN.md_
+- ✅ Deploy: Ready — _local build verified; not deployed in this task_
+- ✅ Next: Review and commit calendar floating panel update
+
+### 🗓️ 2026-05-11
+- ✅ Added outside-click close behavior for calendar floating panels
+- ✅ Preserved calendar date/event clicks so users can switch panels without closing manually
+- ✅ Verified with `npm run lint` and `npm run build`
+- Files: `components/event-calendar.tsx`, `state.md`
+
+### 🗓️ 2026-05-11
+- ✅ Previous NOW: Calendar UI updated — multi-day events render as compact lines and date clicks open a floating day panel
+- ✅ Branch: main | Commit: `240e2c2` — _feat(ui): apply Vercel design system via DESIGN.md_
+- ✅ Deploy: Ready — _local build verified; not deployed in this task_
+- ✅ Next: Review and commit calendar floating panel update
+
+### 🗓️ 2026-05-11
+- ✅ Updated calendar month view so multi-day events display as compact colored lines
+- ✅ Kept single-day events visually lighter to reduce month-view density
+- ✅ Added floating date/event panels with close actions and event detail links
+- ✅ Verified with `npm run lint`, `npm test`, `npm run build`, and local browser check at `http://localhost:3002/calendar`
+- Files: `components/event-calendar.tsx`, `app/globals.css`, `state.md`
+
+### 🗓️ 2026-05-11
+- ✅ Previous NOW: Idle — no active task
+- ✅ Branch: main | Commit: current — _fix: refine upcoming event selection_
+- ✅ Deploy: Ready — _Vercel production_
+- ✅ Next: Commit upcoming events logic update done
 
 ### 🗓️ 2026-05-11
 - ✅ Updated dashboard Upcoming events to show only events that have not started yet
