@@ -7,17 +7,23 @@
 
 ## ⚡ NOW
 
-- **Status**: Repo state cleaned up — nested app repo is the source of truth and calendar release app code is current
-- **Branch**: main | **Commit**: current docs/state update; latest app release code at `d8450c4` — _docs: update calendar release state_
-- **Deploy**: ✅ Production — _Vercel READY; `https://mdt-event-tracking.vercel.app/calendar` returns HTTP 200_
+- **Status**: Production redeployed after repo cleanup/state alignment
+- **Branch**: main | **Commit**: a785af1 — _docs: align repo state_
+- **Deploy**: ✅ Production — _Vercel READY; `dpl_3J7AbpJ9QNfMydbCB4utUoyypYHJ`; `/` and `/calendar` return HTTP 200_
 - **Blocker**: None
-- **Next**: Monitor production calendar UI; keep root wrapper repo for local docs/assets only
+- **Next**: Monitor production calendar UI
 
 ---
 
 ## 📜 LOG
 
 > ย้าย NOW เก่ามาใส่ที่นี่ทุกครั้งที่อัปเดต — ไม่ต้องลบ
+
+### 🗓️ 2026-05-14
+- ✅ Previous NOW: Repo state cleaned up — nested app repo is the source of truth and calendar release app code is current
+- ✅ Branch: main | Commit: current docs/state update; latest app release code at `d8450c4` — _docs: update calendar release state_
+- ✅ Deploy: Production — _Vercel READY; `https://mdt-event-tracking.vercel.app/calendar` returns HTTP 200_
+- ✅ Next: Monitor production calendar UI; keep root wrapper repo for local docs/assets only
 
 ### 🗓️ 2026-05-14
 - ✅ Previous NOW: Calendar release shipped — timeline event bars, floating day panel, and density control deployed
