@@ -7,15 +7,21 @@
 
 ## ⚡ NOW
 
-- **Status**: Production redeployed after repo cleanup/state alignment
-- **Branch**: main | **Commit**: a785af1 — _docs: align repo state_
-- **Deploy**: ✅ Production — _Vercel READY; `dpl_3J7AbpJ9QNfMydbCB4utUoyypYHJ`; `/` and `/calendar` return HTTP 200_
+- **Status**: Folder structure reorganized and deployed to production
+- **Branch**: main | **Commit**: 7980092 — _refactor: reorganize folder structure for clarity_
+- **Deploy**: ✅ Production — _Vercel auto-deploy; `/` and `/calendar` return HTTP 200_
 - **Blocker**: None
-- **Next**: Monitor production calendar UI
+- **Next**: Monitor production
 
 ---
 
 ## 📜 LOG
+
+### 🗓️ 2026-05-16
+- ✅ Previous NOW: Production redeployed after repo cleanup/state alignment
+- ✅ Branch: main | Commit: `a785af1` — _docs: align repo state_
+- ✅ Deploy: Production — _Vercel READY; `dpl_3J7AbpJ9QNfMydbCB4utUoyypYHJ`; `/` and `/calendar` return HTTP 200_
+- ✅ Next: Monitor production calendar UI
 
 > ย้าย NOW เก่ามาใส่ที่นี่ทุกครั้งที่อัปเดต — ไม่ต้องลบ
 
