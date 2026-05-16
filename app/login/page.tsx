@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { LoginForm } from "@/components/login-form";
+import { LoginForm } from "@/components/forms/login-form";
 import { isSupabaseConfigured } from "@/lib/env";
 import { createOptionalClient } from "@/lib/supabase/server";
 

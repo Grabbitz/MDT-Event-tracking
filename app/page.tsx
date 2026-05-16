@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CalendarCheck, CircleDollarSign, Store, Users } from "lucide-react";
-import { StatCard } from "@/components/stat-card";
+import { StatCard } from "@/components/ui/stat-card";
 import { formatDateRange, formatEventDuration } from "@/lib/events";
 import { getDashboardStats } from "@/lib/events";
 

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { CalendarPlus, Search } from "lucide-react";
-import { ExportButton } from "@/components/export-button";
+import { ExportButton } from "@/components/ui/export-button";
 import { formatDateRange, formatEventDuration, getStatusClass, getStatusLabel } from "@/lib/event-format";
 import type { EventRecord, ParticipationStatus } from "@/lib/types";
 

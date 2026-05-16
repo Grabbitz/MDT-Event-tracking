@@ -1,4 +1,4 @@
-import { EventCalendar } from "@/components/event-calendar";
+import { EventCalendar } from "@/components/features/event-calendar";
 import { getEvents } from "@/lib/events";
 
 export const revalidate = 0;

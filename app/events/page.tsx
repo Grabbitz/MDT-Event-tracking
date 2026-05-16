@@ -1,4 +1,4 @@
-import { EventsExplorer } from "@/components/events-explorer";
+import { EventsExplorer } from "@/components/features/events-explorer";
 import { getEvents } from "@/lib/events";
 
 export const dynamic = "force-dynamic";

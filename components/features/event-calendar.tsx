@@ -10,7 +10,7 @@ import thLocale from "@fullcalendar/core/locales/th";
 import { motion, AnimatePresence } from "framer-motion";
 import { CalendarDays, ExternalLink, MapPin, Plus, SlidersHorizontal, X } from "lucide-react";
 import Link from "next/link";
-import { EventChip } from "./event-chip";
+import { EventChip } from "@/components/ui/event-chip";
 import { addDaysToDateOnly, formatDateRange, formatEventDuration, getStatusLabel } from "@/lib/event-format";
 import type { EventRecord } from "@/lib/types";
 

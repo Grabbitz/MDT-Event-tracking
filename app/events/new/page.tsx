@@ -1,4 +1,4 @@
-import { EventForm } from "@/components/event-form";
+import { EventForm } from "@/components/forms/event-form";
 import { isSupabaseConfigured } from "@/lib/env";
 
 export default function NewEventPage() {

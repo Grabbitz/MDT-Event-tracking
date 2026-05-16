@@ -7,10 +7,15 @@ Build and maintain a production-oriented Modern Trade event tracking web app wit
 - Stack: Next.js App Router, React, TypeScript, Tailwind CSS, Supabase, Google Sheet CSV export.
 - Key files:
   - `app/` for routes and pages
-  - `components/` for reusable UI
+  - `components/layout/` for app shell and navigation
+  - `components/features/` for event-calendar, events-explorer
+  - `components/forms/` for event-form, login-form
+  - `components/ui/` for event-chip, stat-card, export-button
   - `lib/events.ts` for runtime data-source selection
   - `lib/google-sheet-events.ts` for Google Sheet CSV parsing
   - `state.md` for project state memory
+  - `docs/DESIGN.md` for UI/UX direction
+  - `docs/TODO.md` for current task list
 - Dependencies: FullCalendar, Supabase, Framer Motion, Lucide React, Excel tooling.
 
 ## Project Memory (`state.md`)

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Thai } from "next/font/google";
-import { AppShell } from "@/components/app-shell";
+import { AppShell } from "@/components/layout/app-shell";
 import "./globals.css";
 
 const notoSansThai = Noto_Sans_Thai({
